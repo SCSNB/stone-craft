@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Генериране на изображения за Stone Craft</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .image-container { margin: 20px 0; }
+        canvas { border: 1px solid #ccc; margin: 10px; }
+        .download-btn { 
+            background: #8B4513; 
+            color: white; 
+            padding: 10px 20px; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Генериране на изображения за Stone Craft</h1>
+    
+    <div class="image-container">
+        <h3>Слайдър изображения (1920x1080)</h3>
+        <canvas id="slide1" width="1920" height="1080"></canvas>
+        <button class="download-btn" onclick="downloadImage('slide1', 'slide1.jpg')">Изтегли slide1.jpg</button>
+        
+        <canvas id="slide2" width="1920" height="1080"></canvas>
+        <button class="download-btn" onclick="downloadImage('slide2', 'slide2.jpg')">Изтегли slide2.jpg</button>
+        
+        <canvas id="slide3" width="1920" height="1080"></canvas>
+        <button class="download-btn" onclick="downloadImage('slide3', 'slide3.jpg')">Изтегли slide3.jpg</button>
+    </div>
+    
+    <div class="image-container">
+        <h3>Monument Samples (200x150)</h3>
+        <canvas id="marbleSample" width="200" height="150"></canvas>
+        <button class="download-btn" onclick="downloadImage('marbleSample', 'marble-sample.jpg')">Изтегли marble-sample.jpg</button>
+        
+        <canvas id="graniteSample" width="200" height="150"></canvas>
+        <button class="download-btn" onclick="downloadImage('graniteSample', 'granite-sample.jpg')">Изтегли granite-sample.jpg</button>
+        
+        <canvas id="triplexSample" width="200" height="150"></canvas>
+        <button class="download-btn" onclick="downloadImage('triplexSample', 'triplex-sample.jpg')">Изтегли triplex-sample.jpg</button>
+    </div>
+    
+    <div class="image-container">
+        <h3>Gallery Images (300x200)</h3>
+        <canvas id="model160" width="300" height="200"></canvas>
+        <button class="download-btn" onclick="downloadImage('model160', 'model-160.jpg')">Изтегли model-160.jpg</button>
+        
+        <canvas id="marbleModel89" width="300" height="200"></canvas>
+        <button class="download-btn" onclick="downloadImage('marbleModel89', 'marble-model-89.jpg')">Изтегли marble-model-89.jpg</button>
+        
+        <canvas id="marbleModel17" width="300" height="200"></canvas>
+        <button class="download-btn" onclick="downloadImage('marbleModel17', 'marble-model-17.jpg')">Изтегли marble-model-17.jpg</button>
+        
+        <canvas id="triplexModel1009" width="300" height="200"></canvas>
+        <button class="download-btn" onclick="downloadImage('triplexModel1009', 'triplex-model-1009.jpg')">Изтегли triplex-model-1009.jpg</button>
+        
+        <canvas id="completeSet" width="300" height="200"></canvas>
+        <button class="download-btn" onclick="downloadImage('completeSet', 'complete-set.jpg')">Изтегли complete-set.jpg</button>
+        
+        <canvas id="marbleModel30" width="300" height="200"></canvas>
+        <button class="download-btn" onclick="downloadImage('marbleModel30', 'marble-model-30.jpg')">Изтегли marble-model-30.jpg</button>
+    </div>
+    
+    <div class="image-container">
+        <h3>Thumbnail Images (150x100)</h3>
+        <canvas id="model160Thumb" width="150" height="100"></canvas>
+        <button class="download-btn" onclick="downloadImage('model160Thumb', 'model-160-thumb.jpg')">Изтегли model-160-thumb.jpg</button>
+        
+        <canvas id="marbleModel89Thumb" width="150" height="100"></canvas>
+        <button class="download-btn" onclick="downloadImage('marbleModel89Thumb', 'marble-model-89-thumb.jpg')">Изтегли marble-model-89-thumb.jpg</button>
+        
+        <canvas id="marbleModel17Thumb" width="150" height="100"></canvas>
+        <button class="download-btn" onclick="downloadImage('marbleModel17Thumb', 'marble-model-17-thumb.jpg')">Изтегли marble-model-17-thumb.jpg</button>
+        
+        <canvas id="triplexModel1009Thumb" width="150" height="100"></canvas>
+        <button class="download-btn" onclick="downloadImage('triplexModel1009Thumb', 'triplex-model-1009-thumb.jpg')">Изтегли triplex-model-1009-thumb.jpg</button>
+        
+        <canvas id="completeSetThumb" width="150" height="100"></canvas>
+        <button class="download-btn" onclick="downloadImage('completeSetThumb', 'complete-set-thumb.jpg')">Изтегли complete-set-thumb.jpg</button>
+        
+        <canvas id="marbleModel30Thumb" width="150" height="100"></canvas>
+        <button class="download-btn" onclick="downloadImage('marbleModel30Thumb', 'marble-model-30-thumb.jpg')">Изтегли marble-model-30-thumb.jpg</button>
+    </div>
+
+    <script>
+        // Функция за създаване на градиент фон
+        function createGradient(ctx, width, height, color1, color2) {
+            const gradient = ctx.createLinearGradient(0, 0, width, height);
+            gradient.addColorStop(0, color1);
+            gradient.addColorStop(1, color2);
+            return gradient;
+        }
+        
+        // Функция за рисуване на текст
+        function drawText(ctx, text, x, y, fontSize = 24, color = 'white') {
+            ctx.fillStyle = color;
+            ctx.font = `bold ${fontSize}px Arial`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(text, x, y);
+        }
+        
+        // Hero Banner
+        function createHeroBanner() {
+            const canvas = document.getElementById('heroBanner');
+            const ctx = canvas.getContext('2d');
+            
+            // Фон с каменна текстура
+            ctx.fillStyle = createGradient(ctx, canvas.width, canvas.height, '#8B4513', '#A0522D');
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Overlay
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Заглавие
+            drawText(ctx, 'Stone Craft - Каменоделски услуги', canvas.width/2, canvas.height/2 - 20, 36);
+            drawText(ctx, 'Професионални услуги за изработка на паметници', canvas.width/2, canvas.height/2 + 20, 18);
+        }
+        
+        // Monument Samples
+        function createMonumentSample(canvasId, title, bgColor1, bgColor2) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            
+            ctx.fillStyle = createGradient(ctx, canvas.width, canvas.height, bgColor1, bgColor2);
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Рамка
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 3;
+            ctx.strokeRect(10, 10, canvas.width-20, canvas.height-20);
+            
+            drawText(ctx, title, canvas.width/2, canvas.height/2, 14, '#333');
+        }
+        
+        // Gallery Images
+        function createGalleryImage(canvasId, title, bgColor1, bgColor2) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            
+            ctx.fillStyle = createGradient(ctx, canvas.width, canvas.height, bgColor1, bgColor2);
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Симулация на паметник
+            ctx.fillStyle = '#666';
+            ctx.fillRect(canvas.width/2 - 40, 30, 80, 120);
+            
+            // Основа
+            ctx.fillStyle = '#555';
+            ctx.fillRect(canvas.width/2 - 50, 150, 100, 20);
+            
+            drawText(ctx, title, canvas.width/2, canvas.height - 15, 12, '#333');
+        }
+        
+        // Thumbnail Images
+        function createThumbnail(canvasId, title, bgColor1, bgColor2) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            
+            ctx.fillStyle = createGradient(ctx, canvas.width, canvas.height, bgColor1, bgColor2);
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Мини паметник
+            ctx.fillStyle = '#666';
+            ctx.fillRect(canvas.width/2 - 20, 15, 40, 60);
+            
+            drawText(ctx, title, canvas.width/2, canvas.height - 10, 8, '#333');
+        }
+        
+        // Слайдър изображения
+        function createSlideImage(canvasId, title, bgColor1, bgColor2) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            
+            // Фон
+            ctx.fillStyle = createGradient(ctx, canvas.width, canvas.height, bgColor1, bgColor2);
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Overlay
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Заглавие
+            drawText(ctx, title, canvas.width/2, canvas.height/2 - 50, 72);
+            drawText(ctx, 'Соун Крафт - Професионално изпълнение', canvas.width/2, canvas.height/2 + 50, 36);
+        }
+        
+        // Създаване на всички изображения
+        createSlideImage('slide1', 'ПАМЕТНИЦИ ОТ МРАМОР', '#8e44ad', '#3498db');
+        createSlideImage('slide2', 'ПАМЕТНИЦИ ОТ ГРАНИТ', '#2c3e50', '#34495e');
+        createSlideImage('slide3', 'ПАМЕТНИЦИ С ТРИПЛЕКС', '#27ae60', '#2ecc71');
+        
+        createMonumentSample('marbleSample', 'МРАМОР', '#F5F5DC', '#E6E6FA');
+        createMonumentSample('graniteSample', 'ГРАНИТ', '#696969', '#2F4F4F');
+        createMonumentSample('triplexSample', 'ТРИПЛЕКС', '#DDA0DD', '#9370DB');
+        
+        createGalleryImage('model160', 'Модел 160', '#F0F8FF', '#E0E0E0');
+        createGalleryImage('marbleModel89', 'Мрамор 89', '#F5F5DC', '#E6E6FA');
+        createGalleryImage('marbleModel17', 'Мрамор 17', '#FFF8DC', '#F0E68C');
+        createGalleryImage('triplexModel1009', 'Триплекс 1009', '#DDA0DD', '#9370DB');
+        createGalleryImage('completeSet', 'Комплект', '#F4A460', '#D2691E');
+        createGalleryImage('marbleModel30', 'Мрамор 30', '#FFFACD', '#F0E68C');
+        
+        createThumbnail('model160Thumb', 'М160', '#F0F8FF', '#E0E0E0');
+        createThumbnail('marbleModel89Thumb', 'М89', '#F5F5DC', '#E6E6FA');
+        createThumbnail('marbleModel17Thumb', 'М17', '#FFF8DC', '#F0E68C');
+        createThumbnail('triplexModel1009Thumb', 'Т1009', '#DDA0DD', '#9370DB');
+        createThumbnail('completeSetThumb', 'Комп.', '#F4A460', '#D2691E');
+        createThumbnail('marbleModel30Thumb', 'М30', '#FFFACD', '#F0E68C');
+        
+        // Функция за изтегляне на изображение
+        function downloadImage(canvasId, filename) {
+            const canvas = document.getElementById(canvasId);
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/jpeg', 0.9);
+            link.click();
+        }
+    </script>
+</body>
+</html>

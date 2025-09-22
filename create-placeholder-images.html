@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Създаване на placeholder изображения</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .image-container { margin: 20px 0; }
+        canvas { border: 1px solid #ccc; margin: 10px; }
+        .download-btn { 
+            background: #007bff; 
+            color: white; 
+            padding: 10px 20px; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Създаване на placeholder изображения за Паметници.нет</h1>
+    
+    <div class="image-container">
+        <h3>Слайдър изображения (1920x1080)</h3>
+        <canvas id="slide1" width="1920" height="1080"></canvas>
+        <button class="download-btn" onclick="downloadImage('slide1', 'slide1.jpg')">Изтегли slide1.jpg</button>
+        
+        <canvas id="slide2" width="1920" height="1080"></canvas>
+        <button class="download-btn" onclick="downloadImage('slide2', 'slide2.jpg')">Изтегли slide2.jpg</button>
+        
+        <canvas id="slide3" width="1920" height="1080"></canvas>
+        <button class="download-btn" onclick="downloadImage('slide3', 'slide3.jpg')">Изтегли slide3.jpg</button>
+    </div>
+    
+    <div class="image-container">
+        <h3>За нас изображение (800x600)</h3>
+        <canvas id="about" width="800" height="600"></canvas>
+        <button class="download-btn" onclick="downloadImage('about', 'about-us.jpg')">Изтегли about-us.jpg</button>
+    </div>
+    
+    <div class="image-container">
+        <h3>Галерия изображения (600x450)</h3>
+        <canvas id="gallery1" width="600" height="450"></canvas>
+        <button class="download-btn" onclick="downloadImage('gallery1', 'gallery1.jpg')">Изтегли gallery1.jpg</button>
+        
+        <canvas id="gallery2" width="600" height="450"></canvas>
+        <button class="download-btn" onclick="downloadImage('gallery2', 'gallery2.jpg')">Изтегли gallery2.jpg</button>
+        
+        <canvas id="gallery3" width="600" height="450"></canvas>
+        <button class="download-btn" onclick="downloadImage('gallery3', 'gallery3.jpg')">Изтегли gallery3.jpg</button>
+        
+        <canvas id="gallery4" width="600" height="450"></canvas>
+        <button class="download-btn" onclick="downloadImage('gallery4', 'gallery4.jpg')">Изтегли gallery4.jpg</button>
+        
+        <canvas id="gallery5" width="600" height="450"></canvas>
+        <button class="download-btn" onclick="downloadImage('gallery5', 'gallery5.jpg')">Изтегли gallery5.jpg</button>
+        
+        <canvas id="gallery6" width="600" height="450"></canvas>
+        <button class="download-btn" onclick="downloadImage('gallery6', 'gallery6.jpg')">Изтегли gallery6.jpg</button>
+    </div>
+    
+    <div class="image-container">
+        <h3>Thumbnail изображения (300x225)</h3>
+        <canvas id="thumb1" width="300" height="225"></canvas>
+        <button class="download-btn" onclick="downloadImage('thumb1', 'gallery1-thumb.jpg')">Изтегли gallery1-thumb.jpg</button>
+        
+        <canvas id="thumb2" width="300" height="225"></canvas>
+        <button class="download-btn" onclick="downloadImage('thumb2', 'gallery2-thumb.jpg')">Изтегли gallery2-thumb.jpg</button>
+        
+        <canvas id="thumb3" width="300" height="225"></canvas>
+        <button class="download-btn" onclick="downloadImage('thumb3', 'gallery3-thumb.jpg')">Изтегли gallery3-thumb.jpg</button>
+        
+        <canvas id="thumb4" width="300" height="225"></canvas>
+        <button class="download-btn" onclick="downloadImage('thumb4', 'gallery4-thumb.jpg')">Изтегли gallery4-thumb.jpg</button>
+        
+        <canvas id="thumb5" width="300" height="225"></canvas>
+        <button class="download-btn" onclick="downloadImage('thumb5', 'gallery5-thumb.jpg')">Изтегли gallery5-thumb.jpg</button>
+        
+        <canvas id="thumb6" width="300" height="225"></canvas>
+        <button class="download-btn" onclick="downloadImage('thumb6', 'gallery6-thumb.jpg')">Изтегли gallery6-thumb.jpg</button>
+    </div>
+
+    <script>
+        // Функция за създаване на градиент фон
+        function createGradient(ctx, width, height, color1, color2) {
+            const gradient = ctx.createLinearGradient(0, 0, width, height);
+            gradient.addColorStop(0, color1);
+            gradient.addColorStop(1, color2);
+            return gradient;
+        }
+        
+        // Функция за рисуване на текст
+        function drawText(ctx, text, x, y, fontSize = 48, color = 'white') {
+            ctx.fillStyle = color;
+            ctx.font = `bold ${fontSize}px Arial`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(text, x, y);
+        }
+        
+        // Слайдър изображения
+        function createSlideImage(canvasId, title, bgColor1, bgColor2) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            
+            // Фон
+            ctx.fillStyle = createGradient(ctx, canvas.width, canvas.height, bgColor1, bgColor2);
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Overlay
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Заглавие
+            drawText(ctx, title, canvas.width/2, canvas.height/2 - 50, 72);
+            drawText(ctx, 'Професионално изпълнение', canvas.width/2, canvas.height/2 + 50, 36);
+        }
+        
+        createSlideImage('slide1', 'ПАМЕТНИЦИ ОТ МРАМОР', '#8e44ad', '#3498db');
+        createSlideImage('slide2', 'ПАМЕТНИЦИ ОТ ГРАНИТ', '#2c3e50', '#34495e');
+        createSlideImage('slide3', 'ПАМЕТНИЦИ С ТРИПЛЕКС', '#27ae60', '#2ecc71');
+        
+        // За нас изображение
+        function createAboutImage() {
+            const canvas = document.getElementById('about');
+            const ctx = canvas.getContext('2d');
+            
+            ctx.fillStyle = createGradient(ctx, canvas.width, canvas.height, '#ecf0f1', '#bdc3c7');
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            drawText(ctx, 'ДАН КОМЕРС 90 ЕООД', canvas.width/2, canvas.height/2 - 40, 36, '#2c3e50');
+            drawText(ctx, 'Каменоделски услуги', canvas.width/2, canvas.height/2 + 20, 24, '#7f8c8d');
+        }
+        
+        createAboutImage();
+        
+        // Галерия изображения
+        function createGalleryImage(canvasId, title, bgColor1, bgColor2) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            
+            ctx.fillStyle = createGradient(ctx, canvas.width, canvas.height, bgColor1, bgColor2);
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Рамка
+            ctx.strokeStyle = 'white';
+            ctx.lineWidth = 10;
+            ctx.strokeRect(20, 20, canvas.width-40, canvas.height-40);
+            
+            drawText(ctx, title, canvas.width/2, canvas.height/2, 32);
+        }
+        
+        createGalleryImage('gallery1', 'Модел 113', '#e74c3c', '#c0392b');
+        createGalleryImage('gallery2', 'Модел 109', '#3498db', '#2980b9');
+        createGalleryImage('gallery3', 'Мраморен паметник', '#9b59b6', '#8e44ad');
+        createGalleryImage('gallery4', 'Гранитен паметник', '#34495e', '#2c3e50');
+        createGalleryImage('gallery5', 'Паметник с триплекс', '#27ae60', '#229954');
+        createGalleryImage('gallery6', 'Каменна облицовка', '#f39c12', '#e67e22');
+        
+        // Thumbnail изображения
+        function createThumbnail(canvasId, title, bgColor1, bgColor2) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            
+            ctx.fillStyle = createGradient(ctx, canvas.width, canvas.height, bgColor1, bgColor2);
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            drawText(ctx, title, canvas.width/2, canvas.height/2, 16);
+        }
+        
+        createThumbnail('thumb1', 'Модел 113', '#e74c3c', '#c0392b');
+        createThumbnail('thumb2', 'Модел 109', '#3498db', '#2980b9');
+        createThumbnail('thumb3', 'Мраморен паметник', '#9b59b6', '#8e44ad');
+        createThumbnail('thumb4', 'Гранитен паметник', '#34495e', '#2c3e50');
+        createThumbnail('thumb5', 'Паметник с триплекс', '#27ae60', '#229954');
+        createThumbnail('thumb6', 'Каменна облицовка', '#f39c12', '#e67e22');
+        
+        // Функция за изтегляне на изображение
+        function downloadImage(canvasId, filename) {
+            const canvas = document.getElementById(canvasId);
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/jpeg', 0.9);
+            link.click();
+        }
+    </script>
+</body>
+</html>
