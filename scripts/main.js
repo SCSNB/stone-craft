@@ -11,11 +11,22 @@ class NavigationModule {
         
         this.init();
     }
+
+    updateLayoutOffset() {
+        try {
+            const layout = document.querySelector('.page-layout');
+            if (!layout || !this.header) return;
+            const offset = this.header.offsetHeight || 0;
+            layout.style.marginTop = `${offset}px`;
+        } catch (_) {}
+    }
     
     init() {
         this.setupScrollEffect();
+        this.updateLayoutOffset();
         this.setupMobileMenu();
         this.setupSmoothScrolling();
+        window.addEventListener('resize', Utils.debounce(() => this.updateLayoutOffset(), 100));
     }
     
     setupScrollEffect() {
@@ -85,24 +96,110 @@ class NavigationModule {
 // Banner Module (replaces Slider)
 class BannerModule {
     constructor() {
-        this.bannerThumbs = document.querySelectorAll('.banner-thumb');
+        this.container = document.querySelector('.banner-images');
+        this.bannerThumbs = this.container ? this.container.querySelectorAll('.banner-thumb') : [];
+        this.bannerText = document.querySelector('.banner-text');
+        this.currentIndex = 0;
+        this.interval = null;
+        this.intervalMs = 3500;
+        // Height tuning
+        this.heightScale = 1.35; // scale relative to text block height
+        this.minHeightDesktop = 320;
+        this.maxHeightDesktop = 640;
+        this.minHeightTablet = 280;
+        this.maxHeightTablet = 560;
+        this.minHeightMobile = 240;
+        this.maxHeightMobile = 480;
         this.init();
     }
     
     init() {
-        this.setupHoverEffects();
+        if (!this.container || !this.bannerThumbs.length) return;
+        this.setupInitialState();
+        this.startAutoSlide();
+        this.setupHoverPause();
+        this.syncHeight();
+        this.setupResizeObserver();
+        this.setupImageLoadHandler();
     }
     
-    setupHoverEffects() {
-        this.bannerThumbs.forEach(thumb => {
-            thumb.addEventListener('mouseenter', () => {
-                thumb.style.transform = 'scale(1.1)';
-            });
-            
-            thumb.addEventListener('mouseleave', () => {
-                thumb.style.transform = 'scale(1)';
-            });
+    setupInitialState() {
+        // Ensure only the first image is visible initially
+        this.bannerThumbs.forEach((img, i) => {
+            img.classList.toggle('active', i === this.currentIndex);
         });
+    }
+
+    startAutoSlide() {
+        this.stopAutoSlide();
+        this.interval = setInterval(() => this.next(), this.intervalMs);
+    }
+
+    stopAutoSlide() {
+        if (this.interval) {
+            clearInterval(this.interval);
+            this.interval = null;
+        }
+    }
+
+    setActive(index) {
+        if (!this.bannerThumbs.length) return;
+        this.bannerThumbs[this.currentIndex]?.classList.remove('active');
+        this.currentIndex = (index + this.bannerThumbs.length) % this.bannerThumbs.length;
+        this.bannerThumbs[this.currentIndex]?.classList.add('active');
+    }
+
+    next() {
+        this.setActive(this.currentIndex + 1);
+    }
+
+    prev() {
+        this.setActive(this.currentIndex - 1);
+    }
+
+    setupHoverPause() {
+        this.container.addEventListener('mouseenter', () => this.stopAutoSlide());
+        this.container.addEventListener('mouseleave', () => this.startAutoSlide());
+    }
+
+    syncHeight() {
+        if (!this.container) return;
+        // For the new layout, use a fixed responsive height
+        const w = window.innerWidth;
+        let desired;
+        if (w <= 480) {
+            desired = 300;
+        } else if (w <= 1024) {
+            desired = 400;
+        } else {
+            desired = 500;
+        }
+        this.container.style.height = `${desired}px`;
+    }
+
+    setupResizeObserver() {
+        const onResize = Utils.debounce(() => this.syncHeight(), 150);
+        window.addEventListener('resize', onResize);
+        // Observe content changes in text block as well
+        if (window.ResizeObserver && this.bannerText) {
+            const ro = new ResizeObserver(() => this.syncHeight());
+            ro.observe(this.bannerText);
+            this._resizeObserver = ro;
+        }
+    }
+
+    setupImageLoadHandler() {
+        // Ensure height recalculates once images/fonts are loaded
+        const recalc = () => this.syncHeight();
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(recalc).catch(() => {});
+        }
+        this.bannerThumbs.forEach(img => {
+            if (img.complete) return; // already loaded
+            img.addEventListener('load', recalc, { once: true });
+            img.addEventListener('error', recalc, { once: true });
+        });
+        window.addEventListener('load', recalc);
     }
 }
 
