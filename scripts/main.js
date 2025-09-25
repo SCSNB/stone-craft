@@ -43,7 +43,7 @@ class NavigationModule {
             }
             
             lastScrollY = currentScrollY;
-        });
+        }, { passive: true });
     }
     
     setupMobileMenu() {
@@ -75,14 +75,16 @@ class NavigationModule {
     setupSmoothScrolling() {
         this.navLinks.forEach(link => {
             link.addEventListener('click', (e) => {
+                const href = link.getAttribute('href') || '';
+                // Only intercept in-page anchors starting with '#'
+                if (!href.startsWith('#')) {
+                    return; // allow normal navigation to e.g. gallery.html
+                }
                 e.preventDefault();
-                const targetId = link.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
+                const targetElement = document.querySelector(href);
                 if (targetElement) {
                     const headerHeight = this.header.offsetHeight;
                     const targetPosition = targetElement.offsetTop - headerHeight;
-                    
                     window.scrollTo({
                         top: targetPosition,
                         behavior: 'smooth'
@@ -206,6 +208,7 @@ class BannerModule {
 // Gallery Module
 class GalleryModule {
     constructor() {
+        this.isGalleryPage = (document.body && document.body.dataset && document.body.dataset.page === 'gallery');
         this.galleryItems = document.querySelectorAll('.gallery-item');
         this.lightbox = document.getElementById('lightbox');
         this.lightboxImage = document.getElementById('lightboxImage');
@@ -223,6 +226,10 @@ class GalleryModule {
     }
     
     init() {
+        // Only enable lightbox interactions on the dedicated Gallery page
+        if (!this.isGalleryPage) {
+            return;
+        }
         this.setupGalleryItems();
         this.setupLightboxControls();
         this.setupKeyboardNavigation();
@@ -560,19 +567,19 @@ class PerformanceModule {
     }
     
     preloadCriticalImages() {
-        const criticalImages = [
-            'images/slide1.jpg',
-            'images/slide2.jpg',
-            'images/slide3.jpg'
-        ];
-        
-        criticalImages.forEach(src => {
-            const link = document.createElement('link');
-            link.rel = 'preload';
-            link.as = 'image';
-            link.href = src;
-            document.head.appendChild(link);
-        });
+        try {
+            // Preload actual banner images present in the DOM to avoid 404s
+            const bannerImgs = document.querySelectorAll('.banner-images .banner-thumb');
+            bannerImgs.forEach(img => {
+                const src = img.getAttribute('src');
+                if (!src) return;
+                const link = document.createElement('link');
+                link.rel = 'preload';
+                link.as = 'image';
+                link.href = src;
+                document.head.appendChild(link);
+            });
+        } catch (_) {}
     }
 }
 

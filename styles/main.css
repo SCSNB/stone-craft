@@ -115,6 +115,52 @@ p {
     line-height: 1.2;
 }
 
+/* When logo is an anchor, remove underline and inherit colors in all states */
+a.logo,
+a.logo:link,
+a.logo:visited,
+a.logo:hover,
+a.logo:active {
+    text-decoration: none;
+    color: inherit !important;
+}
+
+/* Remove focus ring and mobile tap highlight specifically for the logo */
+a.logo:focus, a.logo:focus-visible {
+    outline: none;
+}
+a.logo {
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+}
+
+/* Ensure no default link styles appear in the header (covers nav + logo) */
+.header a,
+.header a:link,
+.header a:visited,
+.header a:hover,
+.header a:active {
+    color: inherit !important;
+    text-decoration: none !important;
+}
+
+/* Apply the same to all children inside header links (e.g., h1, span) */
+.header a *,
+.header a *:link,
+.header a *:visited,
+.header a *:hover,
+.header a *:active {
+    color: inherit !important;
+    text-decoration: none !important;
+}
+
+/* Prevent any underline/border on logo text elements */
+.logo h1,
+.logo span {
+    text-decoration: none !important;
+    border-bottom: 0 !important;
+}
+
 /* Nudge nav slightly down to align with subtitle baseline */
 .nav {
     padding-bottom: 4px;
@@ -657,6 +703,135 @@ p {
 .details-btn:hover {
     background: #70482f;
 }
+
+/* Prices Page */
+.prices-section {
+    padding: 2rem;
+    background: #ffffff;
+}
+
+.prices-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.prices-header h2 {
+    color: #c58a5a;
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+.prices-header p {
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.price-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.price-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1.25rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+.price-card h3 {
+    background: #5a3a28;
+    color: #fff;
+    margin: -1.25rem -1.25rem 1rem;
+    padding: 0.8rem 1.25rem;
+    font-size: 1rem;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+.price-card ul {
+    list-style: none;
+    padding-left: 1rem;
+    margin-bottom: 1rem;
+}
+.price-card ul li {
+    position: relative;
+    padding-left: 0.75rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+    color: #333;
+}
+.price-card ul li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #c58a5a;
+}
+
+.price-table-wrap {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+.price-table-wrap h3 {
+    margin: 0;
+    padding: 1rem 1.25rem;
+    background: #f7f2ea;
+    color: #5a3a28;
+    font-size: 1rem;
+    border-bottom: 1px solid #e5d8c7;
+}
+.price-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+.price-table thead th {
+    background: #faf6ef;
+    color: #5a3a28;
+    text-align: left;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #e5d8c7;
+}
+.price-table tbody td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #f0e6d2;
+    color: #333;
+}
+.price-table tbody tr:nth-child(odd) td {
+    background: #fff;
+}
+.price-table tbody tr:nth-child(even) td {
+    background: #fcfbf8;
+}
+
+.prices-notes {
+    margin-top: 1rem;
+}
+.prices-notes ul {
+    list-style: none;
+    padding-left: 1rem;
+}
+.prices-notes li {
+    position: relative;
+    padding-left: 0.75rem;
+    margin-bottom: 0.4rem;
+    font-size: 0.9rem;
+    color: #555;
+}
+.prices-notes li::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    color: #c58a5a;
+}
+
+.prices-cta {
+    text-align: center;
+    margin-top: 1.25rem;
+}
+
 
 /* Contact Section */
 .contact {

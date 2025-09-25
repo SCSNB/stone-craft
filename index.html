@@ -5,30 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stone Craft - Надгробни Паметници от МРАМОР и ГРАНИТ - Стара Загора</title>
     <meta name="description" content="Stone Craft. Собствена база за изработка на надгробни паметници и изделия от мрамор, гранит и варовик. НИСКИ ЦЕНИ, монтаж и транспорт.">
-    <link rel="stylesheet" href="styles/main.css?v=20250924-7">
+    <link rel="stylesheet" href="styles/main.css?v=20250925-1">
+    <!-- Prefetch internal pages to speed up navigation -->
+    <link rel="prefetch" href="gallery.html" as="document">
+    <link rel="prefetch" href="prices.html" as="document">
+    <link rel="prefetch" href="catalog.html" as="document">
+    <link rel="prefetch" href="services.html" as="document">
+    <link rel="prefetch" href="about.html" as="document">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body>
+<body data-page="home">
     <!-- Header -->
     <header class="header" id="header">
         <div class="container">
             <div class="header-content">
-                <div class="logo">
+                <a href="index.html" class="logo" aria-label="Начало">
                     <h1>Stone Craft</h1>
                     <span>Каменоделски услуги</span>
-                </div>
+                </a>
                 
                 <nav class="nav" id="nav">
                     <ul class="nav-list">
-                        <li><a href="#home" class="nav-link">Начало</a></li>
-                        <li><a href="#catalog" class="nav-link">Каталог</a></li>
-                        <li><a href="#prices" class="nav-link">ЦЕНИ</a></li>
-                        <li><a href="#services" class="nav-link">Услуги</a></li>
-                        <li><a href="#gallery" class="nav-link">Наши проекти</a></li>
-                        <li><a href="#about" class="nav-link">За нас</a></li>
+                        <li><a href="index.html#home" class="nav-link">Начало</a></li>
+                        <li><a href="catalog.html" class="nav-link">Каталог</a></li>
+                        <li><a href="prices.html" class="nav-link">ЦЕНИ</a></li>
+                        <li><a href="services.html" class="nav-link">Услуги</a></li>
+                        <li><a href="gallery.html" class="nav-link">Наши проекти</a></li>
+                        <li><a href="about.html" class="nav-link">За нас</a></li>
                         <li><a href="#contact" class="nav-link">Контакти</a></li>
                     </ul>
                 </nav>
@@ -51,24 +57,24 @@
                 <div class="sidebar-section gallery-section">
                     <h3 class="gallery-title">Галерия</h3>
                     <div class="sidebar-gallery">
-                        <div class="gallery-thumb">
-                            <img src="images/gallery/osnoven.png" alt="Изработен паметник">
-                        </div>
-                        <div class="gallery-thumb">
-                            <img src="images/gallery/mramor.png" alt="Паметник от мрамор">
-                        </div>
-                        <div class="gallery-thumb">
-                            <img src="images/gallery/granit.png" alt="Паметник от гранит">
-                        </div>
-                        <div class="gallery-thumb">
-                            <img src="images/gallery/tripleks.png" alt="Паметник с триплекс">
-                        </div>
-                        <div class="gallery-thumb">
-                            <img src="images/gallery/mramor.png" alt="Паметник от мрамор">
-                        </div>
-                        <div class="gallery-thumb">
-                            <img src="images/gallery/granit.png" alt="Паметник от гранит">
-                        </div>
+                        <a class="gallery-thumb" href="gallery.html" aria-label="Към галерията - Изработен паметник">
+                            <img loading="lazy" src="images/gallery/osnoven.png" alt="Изработен паметник">
+                        </a>
+                        <a class="gallery-thumb" href="gallery.html" aria-label="Към галерията - Паметник от мрамор">
+                            <img loading="lazy" src="images/gallery/mramor.png" alt="Паметник от мрамор">
+                        </a>
+                        <a class="gallery-thumb" href="gallery.html" aria-label="Към галерията - Паметник от гранит">
+                            <img loading="lazy" src="images/gallery/granit.png" alt="Паметник от гранит">
+                        </a>
+                        <a class="gallery-thumb" href="gallery.html" aria-label="Към галерията - Паметник с триплекс">
+                            <img loading="lazy" src="images/gallery/tripleks.png" alt="Паметник с триплекс">
+                        </a>
+                        <a class="gallery-thumb" href="gallery.html" aria-label="Към галерията - Паметник от мрамор">
+                            <img loading="lazy" src="images/gallery/mramor.png" alt="Паметник от мрамор">
+                        </a>
+                        <a class="gallery-thumb" href="gallery.html" aria-label="Към галерията - Паметник от гранит">
+                            <img loading="lazy" src="images/gallery/granit.png" alt="Паметник от гранит">
+                        </a>
                     </div>
                 </div>
                 
@@ -76,11 +82,11 @@
                 <div class="sidebar-section catalog-section">
                     <h3 class="catalog-title">Каталог</h3>
                     <ul class="catalog-menu">
-                        <li><a href="#prices">ЦЕНИ</a></li>
-                        <li><a href="#triplex">Паметници с ТРИПЛЕКС</a></li>
-                        <li><a href="#marble">Паметници от МРАМОР</a></li>
-                        <li><a href="#granite">Паметници от ГРАНИТ</a></li>
-                        <li><a href="#varovik">Паметници от ВАРОВИК</a></li>
+                        <li><a href="prices.html">ЦЕНИ</a></li>
+                        <li><a href="catalog.html#triplex">Паметници с ТРИПЛЕКС</a></li>
+                        <li><a href="catalog.html#marble">Паметници от МРАМОР</a></li>
+                        <li><a href="catalog.html#granite">Паметници от ГРАНИТ</a></li>
+                        <li><a href="catalog.html#varovik">Паметници от ВАРОВИК</a></li>
                     </ul>
                 </div>
                 
@@ -88,9 +94,9 @@
                 <div class="sidebar-section menu-section">
                     <h3 class="menu-title">Меню</h3>
                     <ul class="sidebar-menu">
-                        <li><a href="#catalog">Каталог</a></li>
-                        <li><a href="#services">Услуги</a></li>
-                        <li><a href="#about">За нас</a></li>
+                        <li><a href="catalog.html">Каталог</a></li>
+                        <li><a href="services.html">Услуги</a></li>
+                        <li><a href="about.html">За нас</a></li>
                         <li><a href="#contact">Контакти</a></li>
                     </ul>
                 </div>
@@ -113,9 +119,8 @@
                 <section class="company-section" id="catalog">
                     <div class="company-content">
                         <h1>Паметници и каменоделски услуги<br>Стоун крафт ООД</h1>
-                        <p>разполага със <strong>собствена база</strong> в стара Загора за изработка на паметници и всякакви изделия от разнокаменен материал (мрамор, гранит, варовик). Изработва надгробни паметници, възпоменателни плочи и широк набор от каменни изделия (стълбища, парапети, кухненски плотове, колони, вази, бани, подпрозоречни първази, настилки, външни и вътрешни облицовки и т.н.) от български и вносен мрамор, гранит, варовик.</p>
+                        <p>разполага със <strong>собствена база</strong> в Стара Загора за изработка на паметници и всякакви изделия от разнокаменен материал (мрамор, гранит, варовик). Изработва надгробни паметници, възпоменателни плочи и широк набор от каменни изделия от български и вносен мрамор, гранит, варовик.</p>
                         
-                        <p>Фирмата е в челен на <strong>Съюза на българските каменоделци</strong>, с <strong>утвърдени позиции близо 20 години</strong> и разполага с машини за рязяне полиране, пробивни машини, струг, кран.</p>
                         
                         <ul class="features-list">
                             <li>Осигуряваме <strong>транспорт</strong> и <strong>монтаж</strong> в цялата страна.</li>
@@ -155,59 +160,59 @@
                     </div>
                 </section>
                 
-                <!-- Gallery Section (moved into right column) -->
-                <section class="gallery" id="gallery">
+                <!-- Gallery Section (preview on home; clicking navigates to full gallery page) -->
+                <section class="gallery" id="gallery" data-lightbox="false">
                     <div class="container">
                         <h2>Изработени паметници</h2>
                         
                         <div class="gallery-grid" id="galleryGrid">
-                            <div class="gallery-item" data-src="images/gallery/osnoven.png">
-                                <img src="images/gallery/osnoven.png" alt="Изработен паметник - основен">
+                            <a class="gallery-item" href="gallery.html" data-src="images/gallery/osnoven.png" aria-label="Към галерията - Изработен паметник">
+                                <img loading="lazy" src="images/gallery/osnoven.png" alt="Изработен паметник - основен">
                                 <div class="gallery-info">
                                     <h4>Изработен паметник</h4>
-                                    <a href="#" class="details-btn">Детайли</a>
+                                    <span class="details-btn" aria-hidden="true">Виж галерия</span>
                                 </div>
-                            </div>
+                            </a>
                             
-                            <div class="gallery-item" data-src="images/gallery/mramor.png">
-                                <img src="images/gallery/mramor.png" alt="Надгробен паметник от мрамор">
+                            <a class="gallery-item" href="gallery.html" data-src="images/gallery/mramor.png" aria-label="Към галерията - Паметник от мрамор">
+                                <img loading="lazy" src="images/gallery/mramor.png" alt="Надгробен паметник от мрамор">
                                 <div class="gallery-info">
                                     <h4>Паметник от МРАМОР</h4>
-                                    <a href="#" class="details-btn">Детайли</a>
+                                    <span class="details-btn" aria-hidden="true">Виж галерия</span>
                                 </div>
-                            </div>
+                            </a>
                             
-                            <div class="gallery-item" data-src="images/gallery/granit.png">
-                                <img src="images/gallery/granit.png" alt="Надгробен паметник от гранит">
+                            <a class="gallery-item" href="gallery.html" data-src="images/gallery/granit.png" aria-label="Към галерията - Паметник от гранит">
+                                <img loading="lazy" src="images/gallery/granit.png" alt="Надгробен паметник от гранит">
                                 <div class="gallery-info">
                                     <h4>Паметник от ГРАНИТ</h4>
-                                    <a href="#" class="details-btn">Детайли</a>
+                                    <span class="details-btn" aria-hidden="true">Виж галерия</span>
                                 </div>
-                            </div>
+                            </a>
                             
-                            <div class="gallery-item" data-src="images/gallery/tripleks.png">
-                                <img src="images/gallery/tripleks.png" alt="Надгробен паметник с триплекс">
+                            <a class="gallery-item" href="gallery.html" data-src="images/gallery/tripleks.png" aria-label="Към галерията - Паметник с триплекс">
+                                <img loading="lazy" src="images/gallery/tripleks.png" alt="Надгробен паметник с триплекс">
                                 <div class="gallery-info">
                                     <h4>Паметник с ТРИПЛЕКС</h4>
-                                    <a href="#" class="details-btn">Детайли</a>
+                                    <span class="details-btn" aria-hidden="true">Виж галерия</span>
                                 </div>
-                            </div>
+                            </a>
                             
-                            <div class="gallery-item" data-src="images/gallery/mramor.png">
-                                <img src="images/gallery/mramor.png" alt="Паметник от мрамор">
+                            <a class="gallery-item" href="gallery.html" data-src="images/gallery/mramor.png" aria-label="Към галерията - Паметник от мрамор">
+                                <img loading="lazy" src="images/gallery/mramor.png" alt="Паметник от мрамор">
                                 <div class="gallery-info">
                                     <h4>Паметник от МРАМОР</h4>
-                                    <a href="#" class="details-btn">Детайли</a>
+                                    <span class="details-btn" aria-hidden="true">Виж галерия</span>
                                 </div>
-                            </div>
+                            </a>
                             
-                            <div class="gallery-item" data-src="images/gallery/granit.png">
-                                <img src="images/gallery/granit.png" alt="Паметник от гранит">
+                            <a class="gallery-item" href="gallery.html" data-src="images/gallery/granit.png" aria-label="Към галерията - Паметник от гранит">
+                                <img loading="lazy" src="images/gallery/granit.png" alt="Паметник от гранит">
                                 <div class="gallery-info">
                                     <h4>Паметник от ГРАНИТ</h4>
-                                    <a href="#" class="details-btn">Детайли</a>
+                                    <span class="details-btn" aria-hidden="true">Виж галерия</span>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
                 </section>
@@ -293,6 +298,6 @@
     </div>
 
     <!-- Scripts -->
-    <script src="scripts/main.js?v=20250924-4"></script>
+    <script src="scripts/main.js?v=20250925-2"></script>
 </body>
 </html>
