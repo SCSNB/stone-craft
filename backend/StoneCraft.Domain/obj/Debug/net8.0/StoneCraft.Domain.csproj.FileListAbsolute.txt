@@ -10,3 +10,15 @@
 /Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Domain/obj/Debug/net8.0/refint/StoneCraft.Domain.dll
 /Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Domain/obj/Debug/net8.0/StoneCraft.Domain.pdb
 /Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Domain/obj/Debug/net8.0/ref/StoneCraft.Domain.dll
+/Users/philippenchev1/Documents/stoneCraft/backend/StoneCraft.Domain/bin/Debug/net8.0/StoneCraft.Domain.deps.json
+/Users/philippenchev1/Documents/stoneCraft/backend/StoneCraft.Domain/bin/Debug/net8.0/StoneCraft.Domain.dll
+/Users/philippenchev1/Documents/stoneCraft/backend/StoneCraft.Domain/bin/Debug/net8.0/StoneCraft.Domain.pdb
+/Users/philippenchev1/Documents/stoneCraft/backend/StoneCraft.Domain/obj/Debug/net8.0/StoneCraft.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/Users/philippenchev1/Documents/stoneCraft/backend/StoneCraft.Domain/obj/Debug/net8.0/StoneCraft.Domain.AssemblyInfoInputs.cache
+/Users/philippenchev1/Documents/stoneCraft/backend/StoneCraft.Domain/obj/Debug/net8.0/StoneCraft.Domain.AssemblyInfo.cs
+/Users/philippenchev1/Documents/stoneCraft/backend/StoneCraft.Domain/obj/Debug/net8.0/StoneCraft.Domain.csproj.CoreCompileInputs.cache
+/Users/philippenchev1/Documents/stoneCraft/backend/StoneCraft.Domain/obj/Debug/net8.0/StoneCraft.Domain.sourcelink.json
+/Users/philippenchev1/Documents/stoneCraft/backend/StoneCraft.Domain/obj/Debug/net8.0/StoneCraft.Domain.dll
+/Users/philippenchev1/Documents/stoneCraft/backend/StoneCraft.Domain/obj/Debug/net8.0/refint/StoneCraft.Domain.dll
+/Users/philippenchev1/Documents/stoneCraft/backend/StoneCraft.Domain/obj/Debug/net8.0/StoneCraft.Domain.pdb
+/Users/philippenchev1/Documents/stoneCraft/backend/StoneCraft.Domain/obj/Debug/net8.0/ref/StoneCraft.Domain.dll

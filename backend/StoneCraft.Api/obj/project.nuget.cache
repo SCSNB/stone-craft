@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "HAW5oy05LEs=",
+  "dgSpecHash": "y/Rjf7bHgdA=",
   "success": true,
-  "projectFilePath": "/Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Api/StoneCraft.Api.csproj",
+  "projectFilePath": "/Users/philippenchev1/Documents/stoneCraft/backend/StoneCraft.Api/StoneCraft.Api.csproj",
   "expectedPackageFiles": [
     "/Users/philippenchev1/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/Users/philippenchev1/.nuget/packages/microsoft.aspnetcore.authentication.jwtbearer/8.0.10/microsoft.aspnetcore.authentication.jwtbearer.8.0.10.nupkg.sha512",

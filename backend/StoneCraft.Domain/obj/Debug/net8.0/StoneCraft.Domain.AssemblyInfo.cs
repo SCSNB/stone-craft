@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StoneCraft.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e9dae355444e59d475c5a1124c93762bd4100a2b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+87d2d8a0e578b92a501265582bf757a3bd48a602")]
 [assembly: System.Reflection.AssemblyProductAttribute("StoneCraft.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StoneCraft.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

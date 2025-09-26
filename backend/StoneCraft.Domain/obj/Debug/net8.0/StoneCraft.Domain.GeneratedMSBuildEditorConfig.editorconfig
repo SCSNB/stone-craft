@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = StoneCraft.Domain
-build_property.ProjectDir = /Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Domain/
+build_property.ProjectDir = /Users/philippenchev1/Documents/stoneCraft/backend/StoneCraft.Domain/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

@@ -1,0 +1,29 @@
+{
+  "Files": [
+    {
+      "Id": "/Users/philippenchev1/Documents/stoneCraft/backend/StoneCraft.Api/wwwroot/uploads/9a05b0c9047f4e1a97c7a8be650e7914.png",
+      "PackagePath": "staticwebassets/uploads/9a05b0c9047f4e1a97c7a8be650e7914.png"
+    },
+    {
+      "Id": "/Users/philippenchev1/Documents/stoneCraft/backend/StoneCraft.Api/wwwroot/uploads/ca2bb6b214574b019bd688c50750e495.png",
+      "PackagePath": "staticwebassets/uploads/ca2bb6b214574b019bd688c50750e495.png"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.StoneCraft.Api.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.build.StoneCraft.Api.props",
+      "PackagePath": "build\\StoneCraft.Api.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.StoneCraft.Api.props",
+      "PackagePath": "buildMultiTargeting\\StoneCraft.Api.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.StoneCraft.Api.props",
+      "PackagePath": "buildTransitive\\StoneCraft.Api.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

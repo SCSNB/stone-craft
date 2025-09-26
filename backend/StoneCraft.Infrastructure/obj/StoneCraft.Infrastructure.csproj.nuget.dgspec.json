@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Infrastructure/StoneCraft.Infrastructure.csproj": {}
+    "/Users/philippenchev1/Documents/stoneCraft/backend/StoneCraft.Infrastructure/StoneCraft.Infrastructure.csproj": {}
   },
   "projects": {
-    "/Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Domain/StoneCraft.Domain.csproj": {
+    "/Users/philippenchev1/Documents/stoneCraft/backend/StoneCraft.Domain/StoneCraft.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Domain/StoneCraft.Domain.csproj",
+        "projectUniqueName": "/Users/philippenchev1/Documents/stoneCraft/backend/StoneCraft.Domain/StoneCraft.Domain.csproj",
         "projectName": "StoneCraft.Domain",
-        "projectPath": "/Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Domain/StoneCraft.Domain.csproj",
+        "projectPath": "/Users/philippenchev1/Documents/stoneCraft/backend/StoneCraft.Domain/StoneCraft.Domain.csproj",
         "packagesPath": "/Users/philippenchev1/.nuget/packages/",
-        "outputPath": "/Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Domain/obj/",
+        "outputPath": "/Users/philippenchev1/Documents/stoneCraft/backend/StoneCraft.Domain/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/philippenchev1/.nuget/NuGet/NuGet.Config"
@@ -62,14 +62,14 @@
         }
       }
     },
-    "/Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Infrastructure/StoneCraft.Infrastructure.csproj": {
+    "/Users/philippenchev1/Documents/stoneCraft/backend/StoneCraft.Infrastructure/StoneCraft.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Infrastructure/StoneCraft.Infrastructure.csproj",
+        "projectUniqueName": "/Users/philippenchev1/Documents/stoneCraft/backend/StoneCraft.Infrastructure/StoneCraft.Infrastructure.csproj",
         "projectName": "StoneCraft.Infrastructure",
-        "projectPath": "/Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Infrastructure/StoneCraft.Infrastructure.csproj",
+        "projectPath": "/Users/philippenchev1/Documents/stoneCraft/backend/StoneCraft.Infrastructure/StoneCraft.Infrastructure.csproj",
         "packagesPath": "/Users/philippenchev1/.nuget/packages/",
-        "outputPath": "/Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Infrastructure/obj/",
+        "outputPath": "/Users/philippenchev1/Documents/stoneCraft/backend/StoneCraft.Infrastructure/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/philippenchev1/.nuget/NuGet/NuGet.Config"
@@ -84,8 +84,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Domain/StoneCraft.Domain.csproj": {
-                "projectPath": "/Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Domain/StoneCraft.Domain.csproj"
+              "/Users/philippenchev1/Documents/stoneCraft/backend/StoneCraft.Domain/StoneCraft.Domain.csproj": {
+                "projectPath": "/Users/philippenchev1/Documents/stoneCraft/backend/StoneCraft.Domain/StoneCraft.Domain.csproj"
               }
             }
           }

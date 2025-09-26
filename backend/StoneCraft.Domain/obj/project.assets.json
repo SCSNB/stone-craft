@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Domain/StoneCraft.Domain.csproj",
+      "projectUniqueName": "/Users/philippenchev1/Documents/stoneCraft/backend/StoneCraft.Domain/StoneCraft.Domain.csproj",
       "projectName": "StoneCraft.Domain",
-      "projectPath": "/Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Domain/StoneCraft.Domain.csproj",
+      "projectPath": "/Users/philippenchev1/Documents/stoneCraft/backend/StoneCraft.Domain/StoneCraft.Domain.csproj",
       "packagesPath": "/Users/philippenchev1/.nuget/packages/",
-      "outputPath": "/Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Domain/obj/",
+      "outputPath": "/Users/philippenchev1/Documents/stoneCraft/backend/StoneCraft.Domain/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/philippenchev1/.nuget/NuGet/NuGet.Config"

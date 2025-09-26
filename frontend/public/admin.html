@@ -33,10 +33,15 @@
     </div>
   </header>
 
-  <main>
+  <main style="margin-top: 100px;">
     <section class="container" style="margin-top: 2rem;">
-      <h2>Добавяне на продукт</h2>
-      <form id="productForm" class="admin-form" style="display:grid; gap:1rem; max-width:640px;">
+      <div style="display:flex; align-items:center; gap:1rem; justify-content:space-between; flex-wrap:wrap; margin-bottom:1rem;">
+        <h2 style="margin:0;">Добави продукт</h2>
+        <div style="display:flex; gap:.5rem;">
+          <button id="showAddFormBtn" class="btn btn-primary" type="button" style="background:#2c3e50; color:white; padding:12px 24px; border:none; border-radius:5px; cursor:pointer; font-weight:600;">Добави продукт</button>
+        </div>
+      </div>
+      <form id="productForm" class="admin-form" style="display:none; grid-template-columns:1fr; gap:1rem; max-width:640px; margin-top:1rem;">
         <div>
           <label for="name">Име</label>
           <input id="name" name="name" type="text" placeholder="Име на продукта" required />
@@ -57,8 +62,14 @@
             <option value="3">Триплекс</option>
           </select>
         </div>
+        <div>
+          <label for="image">Снимка (по избор)</label>
+          <input id="image" name="image" type="file" accept="image/png, image/jpeg, image/webp, image/gif">
+          <small style="display:block; color:#666; margin-top:.25rem;">Поддържани формати: JPG, PNG, WEBP, GIF. Максимум 20MB.</small>
+        </div>
         <div style="display:flex; gap:.75rem; align-items:center;">
-          <button type="submit" class="btn btn-primary">Добави</button>
+          <button type="submit" class="btn btn-primary">Запази</button>
+          <button id="cancelFormBtn" type="button" class="btn btn-secondary">Отказ</button>
           <span id="formStatus" aria-live="polite"></span>
         </div>
       </form>
@@ -66,7 +77,7 @@
 
     <section class="container" style="margin-top: 3rem;">
       <div style="display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap;">
-        <h2>Продукти</h2>
+        <h2 id="productsHeader">Продукти</h2>
         <div>
           <label for="filterCategory" style="margin-right:.5rem;">Категория:</label>
           <select id="filterCategory">

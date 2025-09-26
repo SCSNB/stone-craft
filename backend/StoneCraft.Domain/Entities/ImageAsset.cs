@@ -1,4 +1,5 @@
 using System;
+using System.Text.Json.Serialization;
 
 namespace StoneCraft.Domain.Entities;
 
@@ -8,5 +9,6 @@ public class ImageAsset
     public string Url { get; set; } = string.Empty;
     public string? Alt { get; set; }
     public Guid ProductId { get; set; }
+    [JsonIgnore]
     public Product? Product { get; set; }
 }
