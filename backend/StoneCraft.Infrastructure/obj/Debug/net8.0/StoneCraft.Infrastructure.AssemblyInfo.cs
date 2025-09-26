@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StoneCraft.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+148d67f033b25107fae4e73ec6012d491972b7bb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f5592bd63d61928fe8447f1842969c537be609d2")]
 [assembly: System.Reflection.AssemblyProductAttribute("StoneCraft.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StoneCraft.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
