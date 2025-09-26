@@ -1759,16 +1759,17 @@ a.logo {
 
 @media (max-width: 768px) {
     .page-layout {
-        display: block;
+        display: block; /* single column layout */
+        grid-template-columns: 1fr; /* fallback if grid remains */
     }
-    
+    /* Hide left sidebar on mobile */
     .sidebar {
-        width: 100%;
-        order: 2;
+        display: none !important;
     }
-    
+    /* Make main content full width */
     .main-content-area {
         order: 1;
+        width: 100%;
     }
     
     .contact-form-section .contact-grid {
