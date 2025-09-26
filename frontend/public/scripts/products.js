@@ -94,7 +94,7 @@
       const imageUrl = firstImage ? `${API_BASE}${firstImage}` : '';
       
       return `
-        <article class="product-card">
+        <article class="product-card" onclick="openProductDetails('${product.id || product.Id}')" style="cursor: pointer;">
           <div class="product-image">
             ${imageUrl ? 
               `<img src="${imageUrl}" alt="${escapeHtml(product.name)}" loading="lazy">` :
@@ -122,7 +122,10 @@
     productsContainer.innerHTML = html;
   }
   
-  
+  window.openProductDetails = function(productId) {
+    window.location.href = `product-details.html?id=${productId}`;
+  };
+
   async function loadProducts(category = '') {
     if (!productsContainer) return;
     

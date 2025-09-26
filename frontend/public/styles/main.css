@@ -134,6 +134,11 @@ p {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
+.product-card[style*="cursor: pointer"]:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
 .product-image {
     position: relative;
     height: 200px;
@@ -213,7 +218,7 @@ p {
 
 .product-price {
     font-weight: 600;
-    color: #27ae60;
+    color: #2c3e50;
     font-size: 1rem;
     line-height: 1.3;
     display: block;
@@ -245,6 +250,183 @@ p {
 
 .breadcrumb a:hover {
     text-decoration: underline;
+}
+
+/* Product Details Page */
+.product-details-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+    .product-details-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+
+.product-images-section {
+    position: sticky;
+    top: 120px;
+    height: fit-content;
+}
+
+.main-image-container {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.thumbnail-gallery {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.thumbnail {
+    width: 80px;
+    height: 80px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.thumbnail.active {
+    border-color: #2c3e50;
+}
+
+.thumbnail:hover {
+    border-color: #34495e;
+}
+
+.thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-info-section {
+    padding-left: 1rem;
+}
+
+.product-header {
+    margin-bottom: 1.5rem;
+}
+
+.product-header h1 {
+    margin: 0 0 0.5rem 0;
+    font-size: 2rem;
+    color: #2c3e50;
+    line-height: 1.2;
+}
+
+.product-category-badge {
+    background: #f7f2ea;
+    color: #5a3a28;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    border: 1px solid #e5d8c7;
+    font-weight: 600;
+}
+
+.product-category-badge.category-1 {
+    background: #e8f5e8;
+    color: #2d5a2d;
+    border-color: #c3e6c3;
+}
+
+.product-category-badge.category-2 {
+    background: #e8f0ff;
+    color: #1a365d;
+    border-color: #bee3f8;
+}
+
+.product-category-badge.category-3 {
+    background: #fff5e6;
+    color: #744210;
+    border-color: #fbd38d;
+}
+
+.product-price-section {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #2c3e50;
+}
+
+.product-price-large {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+    line-height: 1.3;
+}
+
+.product-description-section {
+    margin-bottom: 2rem;
+}
+
+.product-description-section h3 {
+    margin: 0 0 1rem 0;
+    font-size: 1.3rem;
+    color: #2c3e50;
+}
+
+.product-description-content {
+    color: #555;
+    line-height: 1.6;
+}
+
+.product-description-content ul {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+}
+
+.product-description-content li {
+    margin-bottom: 0.5rem;
+}
+
+.contact-section {
+    background: #2c3e50;
+    color: white;
+    padding: 2rem;
+    border-radius: 8px;
+}
+
+.contact-section h3 {
+    margin: 0 0 1rem 0;
+    font-size: 1.2rem;
+}
+
+.contact-phones {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.phone-number {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.phone-number i {
+    color: #27ae60;
+}
+
+.phone-number a {
+    color: white;
+    text-decoration: none;
+}
+
+.phone-number a:hover {
+    color: #27ae60;
 }
 
 /* Catalog menu links */

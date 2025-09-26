@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Детайли за продукт - Stone Craft</title>
+    <meta name="description" content="Детайли за продукт от Stone Craft">
+    <link rel="stylesheet" href="styles/main.css?v=20250925-1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body data-page="product-details">
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo" aria-label="Начало">
+                    <h1>Stone Craft</h1>
+                    <span>Каменоделски услуги</span>
+                </a>
+                <nav class="nav" id="nav">
+                    <ul class="nav-list">
+                        <li><a href="index.html#home" class="nav-link">Начало</a></li>
+                        <li><a href="catalog.html" class="nav-link">Каталог</a></li>
+                        <li><a href="prices.html" class="nav-link">ЦЕНИ</a></li>
+                        <li><a href="index.html#services" class="nav-link">Услуги</a></li>
+                        <li><a href="gallery.html" class="nav-link">Наши проекти</a></li>
+                        <li><a href="index.html#about" class="nav-link">За нас</a></li>
+                        <li><a href="index.html#contact" class="nav-link">Контакти</a></li>
+                    </ul>
+                </nav>
+                <button class="burger-menu" id="burgerMenu" aria-label="Отвори меню">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main style="margin-top: 100px;">
+        <div class="container">
+            <!-- Breadcrumb Navigation -->
+            <nav class="breadcrumb" style="margin-bottom: 2rem;">
+                <a href="index.html">Начало</a>
+                <span>→</span>
+                <a href="catalog.html">Каталог</a>
+                <span>→</span>
+                <a href="#" id="breadcrumb-category">Категория</a>
+                <span>→</span>
+                <span id="breadcrumb-product">Продукт</span>
+            </nav>
+
+            <!-- Loading State -->
+            <div id="loading-state" style="text-align:center; padding:3rem;">
+                <i class="fas fa-spinner fa-spin" style="font-size:2rem; color:#2c3e50; margin-bottom:1rem;"></i>
+                <p>Зареждане на продукт...</p>
+            </div>
+
+            <!-- Error State -->
+            <div id="error-state" style="text-align:center; padding:3rem; display:none;">
+                <i class="fas fa-exclamation-triangle" style="font-size:3rem; color:#e74c3c; margin-bottom:1rem;"></i>
+                <h2>Продуктът не е намерен</h2>
+                <p>Този продукт не съществува или е бил премахнат.</p>
+                <a href="products.html" class="btn btn-primary">Обратно към продуктите</a>
+            </div>
+
+            <!-- Product Details -->
+            <div id="product-details" style="display:none;">
+                <div class="product-details-layout">
+                    <!-- Left Side - Images -->
+                    <div class="product-images-section">
+                        <div class="main-image-container">
+                            <img id="main-image" src="" alt="" style="width:100%; height:400px; object-fit:cover; border-radius:8px;">
+                            <div id="no-image-placeholder" style="display:none; width:100%; height:400px; background:#f8f9fa; border-radius:8px; display:flex; align-items:center; justify-content:center; flex-direction:column; color:#6c757d;">
+                                <i class="fas fa-image" style="font-size:3rem; margin-bottom:1rem;"></i>
+                                <span>Няма снимка</span>
+                            </div>
+                        </div>
+                        <div id="thumbnail-gallery" class="thumbnail-gallery" style="display:none; margin-top:1rem;">
+                            <!-- Thumbnails will be inserted here -->
+                        </div>
+                    </div>
+
+                    <!-- Right Side - Product Info -->
+                    <div class="product-info-section">
+                        <div class="product-header">
+                            <h1 id="product-title">Име на продукт</h1>
+                            <span id="product-category" class="product-category-badge"></span>
+                        </div>
+
+                        <div class="product-price-section">
+                            <div id="product-price" class="product-price-large"></div>
+                        </div>
+
+                        <div class="product-description-section">
+                            <h3>Описание</h3>
+                            <div id="product-description" class="product-description-content">
+                                <p>Цената на паметника зависи:</p>
+                                <ul>
+                                    <li>От сложността на изработката</li>
+                                    <li>От вида на материала - гранит, мрамор, варовик и различните им разновидности</li>
+                                    <li>От размери – височина, ширина и дебелина на материала</li>
+                                </ul>
+                                <p>За повече информация заповядайте на място в собствената ни база, за да разгледате на живо много от нашите изработени гранитни и мраморни паметници и сами да се уверите в качествената изработка и ниски цени, които ни държат на пазара вече близо 20 години.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>2025 SmartCodeSolutions. Всички права запазени</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/main.js?v=20250925-2"></script>
+    <script src="scripts/product-details.js"></script>
+</body>
+</html>

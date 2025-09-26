@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "8ztVTaM/jzo+SKyQFa1/GdMg2rC2MWTGX1t/NI0K2Sk=",
+  "Hash": "QjIklDxAz8/SJI+v6qZIcgXMocYL1kF6qd3pXHQVoyY=",
   "Source": "StoneCraft.Api",
   "BasePath": "_content/StoneCraft.Api",
   "Mode": "Default",
@@ -16,25 +16,6 @@
     }
   ],
   "Assets": [
-    {
-      "Identity": "/Users/philippenchev1/Documents/stoneCraft/backend/StoneCraft.Api/wwwroot/uploads/0d5b3095-636e-4c85-b280-65b6fd0f97bc.png",
-      "SourceId": "StoneCraft.Api",
-      "SourceType": "Discovered",
-      "ContentRoot": "/Users/philippenchev1/Documents/stoneCraft/backend/StoneCraft.Api/wwwroot/",
-      "BasePath": "_content/StoneCraft.Api",
-      "RelativePath": "uploads/0d5b3095-636e-4c85-b280-65b6fd0f97bc.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/uploads/0d5b3095-636e-4c85-b280-65b6fd0f97bc.png"
-    },
     {
       "Identity": "/Users/philippenchev1/Documents/stoneCraft/backend/StoneCraft.Api/wwwroot/uploads/1409c12f-66cb-4a9f-a130-e0a320baed6f.jpg",
       "SourceId": "StoneCraft.Api",
@@ -72,6 +53,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/uploads/1e756871-1d89-49a6-aa66-2f13c3ab750e.jpg"
+    },
+    {
+      "Identity": "/Users/philippenchev1/Documents/stoneCraft/backend/StoneCraft.Api/wwwroot/uploads/4e18e10c-9a6e-4be8-a623-ab4d679340fb.png",
+      "SourceId": "StoneCraft.Api",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/philippenchev1/Documents/stoneCraft/backend/StoneCraft.Api/wwwroot/",
+      "BasePath": "_content/StoneCraft.Api",
+      "RelativePath": "uploads/4e18e10c-9a6e-4be8-a623-ab4d679340fb.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/uploads/4e18e10c-9a6e-4be8-a623-ab4d679340fb.png"
     },
     {
       "Identity": "/Users/philippenchev1/Documents/stoneCraft/backend/StoneCraft.Api/wwwroot/uploads/9a05b0c9047f4e1a97c7a8be650e7914.png",
@@ -129,6 +129,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/uploads/ca2bb6b214574b019bd688c50750e495.png"
+    },
+    {
+      "Identity": "/Users/philippenchev1/Documents/stoneCraft/backend/StoneCraft.Api/wwwroot/uploads/d6018169-c58d-4517-95dd-c6cb8e8fd2e7.png",
+      "SourceId": "StoneCraft.Api",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/philippenchev1/Documents/stoneCraft/backend/StoneCraft.Api/wwwroot/",
+      "BasePath": "_content/StoneCraft.Api",
+      "RelativePath": "uploads/d6018169-c58d-4517-95dd-c6cb8e8fd2e7.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/uploads/d6018169-c58d-4517-95dd-c6cb8e8fd2e7.png"
     }
   ]
 }
