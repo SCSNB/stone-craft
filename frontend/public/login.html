@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Вход - Админ панел</title>
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/admin.css">
+</head>
+<body data-page="login">
+  <main class="container" style="max-width:560px; margin-top:4rem;">
+    <h1 style="margin-bottom:1rem;">Вход</h1>
+    <form id="loginForm" class="admin-form" style="display:grid; gap:1rem;">
+      <div>
+        <label for="username">Потребител</label>
+        <input id="username" name="username" type="text" placeholder="admin" required>
+      </div>
+      <div>
+        <label for="password">Парола</label>
+        <input id="password" name="password" type="password" placeholder="••••••" required>
+      </div>
+      <div style="display:flex; gap:.75rem; align-items:center;">
+        <button type="submit" class="btn btn-primary">Вход</button>
+        <span id="loginStatus" aria-live="polite"></span>
+      </div>
+    </form>
+  </main>
+  <script src="scripts/login.js"></script>
+</body>
+</html>

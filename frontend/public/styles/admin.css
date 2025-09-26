@@ -1,0 +1,109 @@
+/* Admin panel styling */
+:root{
+  --bg:#0f1216;
+  --card:#171b21;
+  --border:#222832;
+  --text:#e6ebf0;
+  --muted:#9aa7b2;
+  --primary:#27ae60;
+  --primary-700:#1f8e4e;
+}
+
+body[data-page="admin"],
+body[data-page="login"]{
+  background: var(--bg);
+  color: var(--text);
+}
+
+.admin-form input,
+.admin-form textarea,
+.admin-form select{
+  width: 100%;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: .75rem .9rem;
+  color: var(--text);
+  outline: none;
+}
+
+.admin-form input:focus,
+.admin-form textarea:focus,
+.admin-form select:focus{
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(39,174,96,.15);
+}
+
+.btn{
+  padding: .6rem 1rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.btn-primary{
+  background: var(--primary);
+  color: white;
+}
+
+.btn-primary:hover{
+  background: var(--primary-700);
+}
+
+.btn-secondary{
+  background: transparent;
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.products-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.product-card{
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.product-card .product-body{
+  padding: .9rem;
+}
+
+.product-title{
+  margin: 0 0 .25rem 0;
+  font-size: 1.05rem;
+}
+
+.product-price{
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.product-tag{
+  padding: .2rem .5rem;
+  background: #212734;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: .8rem;
+  color: var(--muted);
+}
+
+.header{
+  background: rgba(16,19,24,.75);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+
+.header .logo h1{ color: var(--text); }
+
+/* Login page */
+body[data-page="login"] .admin-form{
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem;
+}

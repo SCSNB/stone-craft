@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StoneCraft.Domain.Entities;
 using StoneCraft.Infrastructure;
+using StoneCraft.Domain.Enums;
+using Microsoft.AspNetCore.Authorization;
 
 namespace StoneCraft.Api.Controllers;
 
@@ -17,11 +19,19 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Product>>> GetAll()
+    public async Task<ActionResult<IEnumerable<Product>>> GetAll([FromQuery] int? category)
     {
-        var products = await _db.Products
-            .Include(p => p.Category)
+        var query = _db.Products
             .Include(p => p.Images)
+            .AsQueryable();
+
+        if (category.HasValue && Enum.IsDefined(typeof(CategoryType), category.Value))
+        {
+            var cat = (CategoryType)category.Value;
+            query = query.Where(p => p.Category == cat);
+        }
+
+        var products = await query
             .OrderByDescending(p => p.CreatedAt)
             .ToListAsync();
         return Ok(products);
@@ -31,7 +41,6 @@ public class ProductsController : ControllerBase
     public async Task<ActionResult<Product>> GetById(Guid id)
     {
         var product = await _db.Products
-            .Include(p => p.Category)
             .Include(p => p.Images)
             .FirstOrDefaultAsync(p => p.Id == id);
         if (product == null) return NotFound();
@@ -39,6 +48,7 @@ public class ProductsController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<ActionResult<Product>> Create(Product input)
     {
         input.Id = Guid.NewGuid();
@@ -49,6 +59,7 @@ public class ProductsController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize]
     public async Task<IActionResult> Update(Guid id, Product input)
     {
         var product = await _db.Products.FindAsync(id);
@@ -57,7 +68,7 @@ public class ProductsController : ControllerBase
         product.Name = input.Name;
         product.Description = input.Description;
         product.Price = input.Price;
-        product.CategoryId = input.CategoryId;
+        product.Category = input.Category;
         product.UpdatedAt = DateTime.UtcNow;
 
         await _db.SaveChangesAsync();
@@ -65,6 +76,7 @@ public class ProductsController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize]
     public async Task<IActionResult> Delete(Guid id)
     {
         var product = await _db.Products.FindAsync(id);

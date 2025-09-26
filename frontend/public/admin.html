@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Админ панел - Stone Craft</title>
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/admin.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body data-page="admin">
+  <header class="header" id="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="index.html" class="logo" aria-label="Начало">
+          <h1>Stone Craft</h1>
+          <span>Админ панел</span>
+        </a>
+        <nav class="nav" id="nav">
+          <ul class="nav-list">
+            <li><a href="index.html" class="nav-link">Начало</a></li>
+            <li><a href="catalog.html" class="nav-link">Каталог</a></li>
+            <li><a href="admin.html" class="nav-link">Админ</a></li>
+          </ul>
+        </nav>
+        <button id="logoutBtn" class="btn btn-secondary" style="margin-left:auto">Изход</button>
+        <button class="burger-menu" id="burgerMenu" aria-label="Отвори меню">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="container" style="margin-top: 2rem;">
+      <h2>Добавяне на продукт</h2>
+      <form id="productForm" class="admin-form" style="display:grid; gap:1rem; max-width:640px;">
+        <div>
+          <label for="name">Име</label>
+          <input id="name" name="name" type="text" placeholder="Име на продукта" required />
+        </div>
+        <div>
+          <label for="description">Описание</label>
+          <textarea id="description" name="description" rows="3" placeholder="Кратко описание"></textarea>
+        </div>
+        <div>
+          <label for="price">Цена (лв.)</label>
+          <input id="price" name="price" type="number" step="0.01" min="0" placeholder="0.00" required />
+        </div>
+        <div>
+          <label for="category">Категория</label>
+          <select id="category" name="category" required>
+            <option value="1">Мрамор</option>
+            <option value="2">Гранит</option>
+            <option value="3">Триплекс</option>
+          </select>
+        </div>
+        <div style="display:flex; gap:.75rem; align-items:center;">
+          <button type="submit" class="btn btn-primary">Добави</button>
+          <span id="formStatus" aria-live="polite"></span>
+        </div>
+      </form>
+    </section>
+
+    <section class="container" style="margin-top: 3rem;">
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap;">
+        <h2>Продукти</h2>
+        <div>
+          <label for="filterCategory" style="margin-right:.5rem;">Категория:</label>
+          <select id="filterCategory">
+            <option value="">Всички</option>
+            <option value="1">Мрамор</option>
+            <option value="2">Гранит</option>
+            <option value="3">Триплекс</option>
+          </select>
+        </div>
+      </div>
+      <div id="adminProducts" class="products-grid" style="margin-top:1rem;"></div>
+    </section>
+  </main>
+
+  <footer class="footer" style="margin-top: 3rem;">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>2025 SmartCodeSolutions. Всички права запазени</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="scripts/main.js"></script>
+  <script src="scripts/admin.js"></script>
+</body>
+</html>

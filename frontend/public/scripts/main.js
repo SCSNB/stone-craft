@@ -310,6 +310,69 @@ class GalleryModule {
     }
 }
 
+// Products Module (fetches from API on catalog page)
+class ProductsModule {
+    constructor() {
+        this.isCatalogPage = (document.body && document.body.dataset && document.body.dataset.page === 'catalog');
+        this.container = document.getElementById('dynamic-products');
+        this.API_BASE = 'http://localhost:5080';
+        if (this.isCatalogPage && this.container) {
+            this.init();
+        }
+    }
+
+    async init() {
+        try {
+            const products = await this.fetchProducts();
+            this.renderProducts(products);
+        } catch (err) {
+            console.error('Грешка при зареждане на продукти:', err);
+            this.container.innerHTML = '<p style="color:#e74c3c">Неуспешно зареждане на продукти. Опитайте отново по-късно.</p>';
+        }
+    }
+
+    async fetchProducts() {
+        const res = await fetch(`${this.API_BASE}/api/Products`);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return await res.json();
+    }
+
+    renderProducts(items) {
+        if (!Array.isArray(items) || items.length === 0) {
+            this.container.innerHTML = '<p>Все още няма налични продукти.</p>';
+            return;
+        }
+        const html = items.map(p => this.productCard(p)).join('');
+        this.container.innerHTML = html;
+    }
+
+    productCard(p) {
+        const price = typeof p.price === 'number' ? p.price.toFixed(2) : p.price;
+        const img = (Array.isArray(p.images) && p.images.length > 0) ? (p.images[0].url || '') : '';
+        const safeImg = img ? `<img src="${img}" alt="${this.escapeHtml(p.name)}">` : '';
+        return `
+            <article class="product-card">
+                <div class="product-media">${safeImg}</div>
+                <div class="product-body">
+                    <h3 class="product-title">${this.escapeHtml(p.name)}</h3>
+                    ${p.description ? `<p class="product-desc">${this.escapeHtml(p.description)}</p>` : ''}
+                    ${price ? `<div class="product-price">${price} лв.</div>` : ''}
+                </div>
+            </article>
+        `;
+    }
+
+    escapeHtml(str) {
+        if (typeof str !== 'string') return '';
+        return str
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+    }
+}
+
 // Contact Form Module
 class ContactFormModule {
     constructor() {
@@ -607,6 +670,7 @@ class App {
             this.modules.navigation = new NavigationModule();
             this.modules.banner = new BannerModule();
             this.modules.gallery = new GalleryModule();
+            this.modules.products = new ProductsModule();
             this.modules.contactForm = new ContactFormModule();
             this.modules.scrollAnimations = new ScrollAnimationsModule();
             this.modules.performance = new PerformanceModule();

@@ -138,3 +138,11 @@
 /Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Api/obj/Debug/net8.0/StoneCraft.Api.pdb
 /Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Api/obj/Debug/net8.0/StoneCraft.Api.genruntimeconfig.cache
 /Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Api/obj/Debug/net8.0/ref/StoneCraft.Api.dll
+/Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Api/bin/Debug/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Api/bin/Debug/net8.0/Microsoft.IdentityModel.Abstractions.dll
+/Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Api/bin/Debug/net8.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Api/bin/Debug/net8.0/Microsoft.IdentityModel.Logging.dll
+/Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Api/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.dll
+/Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Api/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Api/bin/Debug/net8.0/Microsoft.IdentityModel.Tokens.dll
+/Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Api/bin/Debug/net8.0/System.IdentityModel.Tokens.Jwt.dll
