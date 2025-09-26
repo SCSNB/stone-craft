@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Продукти - Stone Craft</title>
+    <meta name="description" content="Продукти и паметници от Stone Craft">
+    <link rel="stylesheet" href="styles/main.css?v=20250925-1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body data-page="products">
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo" aria-label="Начало">
+                    <h1>Stone Craft</h1>
+                    <span>Каменоделски услуги</span>
+                </a>
+                <nav class="nav" id="nav">
+                    <ul class="nav-list">
+                        <li><a href="index.html#home" class="nav-link">Начало</a></li>
+                        <li><a href="catalog.html" class="nav-link">Каталог</a></li>
+                        <li><a href="prices.html" class="nav-link">ЦЕНИ</a></li>
+                        <li><a href="index.html#services" class="nav-link">Услуги</a></li>
+                        <li><a href="gallery.html" class="nav-link">Наши проекти</a></li>
+                        <li><a href="index.html#about" class="nav-link">За нас</a></li>
+                        <li><a href="index.html#contact" class="nav-link">Контакти</a></li>
+                    </ul>
+                </nav>
+                <button class="burger-menu" id="burgerMenu" aria-label="Отвори меню">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main style="margin-top: 100px;">
+        <div class="page-layout">
+            <!-- Left Sidebar -->
+            <aside class="sidebar">
+                <!-- Gallery Section -->
+                <div class="sidebar-section gallery-section">
+                    <h3 class="gallery-title">Галерия</h3>
+                    <div class="sidebar-gallery">
+                        <a class="gallery-thumb" href="gallery.html" aria-label="Към галерията">
+                            <img loading="lazy" decoding="async" src="images/gallery/osnoven.png" alt="Изработен паметник">
+                        </a>
+                        <a class="gallery-thumb" href="gallery.html" aria-label="Към галерията">
+                            <img loading="lazy" decoding="async" src="images/gallery/mramor.png" alt="Паметник от мрамор">
+                        </a>
+                        <a class="gallery-thumb" href="gallery.html" aria-label="Към галерията">
+                            <img loading="lazy" decoding="async" src="images/gallery/granit.png" alt="Паметник от гранит">
+                        </a>
+                        <a class="gallery-thumb" href="gallery.html" aria-label="Към галерията">
+                            <img loading="lazy" decoding="async" src="images/gallery/tripleks.png" alt="Паметник с триплекс">
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Catalog Section -->
+                <div class="sidebar-section catalog-section">
+                    <h3 class="catalog-title">Каталог</h3>
+                    <ul class="catalog-menu">
+                        <li><a href="prices.html">ЦЕНИ</a></li>
+                        <li><a href="products.html?category=3">Паметници с ТРИПЛЕКС</a></li>
+                        <li><a href="products.html?category=1">Паметници от МРАМОР</a></li>
+                        <li><a href="products.html?category=2">Паметници от ГРАНИТ</a></li>
+                        <li><a href="products.html">Всички продукти</a></li>
+                    </ul>
+                </div>
+
+                <!-- Menu Section -->
+                <div class="sidebar-section menu-section">
+                    <h3 class="menu-title">Меню</h3>
+                    <ul class="sidebar-menu">
+                        <li><a href="catalog.html">Каталог</a></li>
+                        <li><a href="index.html#services">Услуги</a></li>
+                        <li><a href="index.html#about">За нас</a></li>
+                        <li><a href="index.html#contact">Контакти</a></li>
+                    </ul>
+                </div>
+            </aside>
+
+            <div class="main-content-area">
+                <!-- Breadcrumb Navigation -->
+                <nav class="breadcrumb" style="margin-bottom: 2rem;">
+                    <a href="index.html">Начало</a>
+                    <span>→</span>
+                    <a href="catalog.html">Каталог</a>
+                    <span>→</span>
+                    <span id="breadcrumb-category">Продукти</span>
+                </nav>
+
+                <!-- Products Section -->
+                <section class="products-section">
+                    <div class="container">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem; flex-wrap:wrap; gap:1rem;">
+                            <h1 id="products-title">Продукти</h1>
+                            <div class="filter-controls">
+                                <label for="category-filter" style="margin-right:0.5rem;">Категория:</label>
+                                <select id="category-filter" style="padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                                    <option value="">Всички</option>
+                                    <option value="1">Мрамор</option>
+                                    <option value="2">Гранит</option>
+                                    <option value="3">Триплекс</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div id="dynamic-products" class="products-grid" aria-live="polite"></div>
+                        
+                        <div id="loading-message" style="text-align:center; padding:3rem; display:none;">
+                            <div style="display:inline-block; padding:2rem; background:white; border-radius:8px; box-shadow:0 2px 10px rgba(0,0,0,0.1);">
+                                <i class="fas fa-spinner fa-spin" style="font-size:2rem; color:#2c3e50; margin-bottom:1rem;"></i>
+                                <p style="margin:0; color:#666;">Зареждане на продукти...</p>
+                            </div>
+                        </div>
+                        
+                        <div id="no-products-message" style="text-align:center; padding:3rem; display:none;">
+                            <div style="display:inline-block; padding:2rem; background:white; border-radius:8px; box-shadow:0 2px 10px rgba(0,0,0,0.1);">
+                                <i class="fas fa-box-open" style="font-size:3rem; color:#bdc3c7; margin-bottom:1rem;"></i>
+                                <h3 style="margin:0 0 0.5rem 0; color:#2c3e50;">Няма продукти</h3>
+                                <p style="margin:0; color:#666;">В тази категория все още няма добавени продукти.</p>
+                                <a href="catalog.html" class="btn btn-primary" style="margin-top:1rem; display:inline-block;">Обратно към каталога</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>2025 SmartCodeSolutions. Всички права запазени</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/main.js?v=20250925-2"></script>
+    <script src="scripts/products.js"></script>
+</body>
+</html>

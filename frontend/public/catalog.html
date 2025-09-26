@@ -78,10 +78,10 @@
                     <h3 class="catalog-title">Каталог</h3>
                     <ul class="catalog-menu">
                         <li><a href="prices.html">ЦЕНИ</a></li>
-                        <li><a href="#triplex">Паметници с ТРИПЛЕКС</a></li>
-                        <li><a href="#marble">Паметници от МРАМОР</a></li>
-                        <li><a href="#granite">Паметници от ГРАНИТ</a></li>
-                        <li><a href="#varovik">Паметници от ВАРОВИК</a></li>
+                        <li><a href="products.html?category=3">Паметници с ТРИПЛЕКС</a></li>
+                        <li><a href="products.html?category=1">Паметници от МРАМОР</a></li>
+                        <li><a href="products.html?category=2">Паметници от ГРАНИТ</a></li>
+                        <li><a href="products.html">Всички продукти</a></li>
                     </ul>
                 </div>
 
@@ -101,37 +101,41 @@
                 <section class="monument-types-section">
                     <div class="container">
                         <div class="monument-grid">
-                            <div class="monument-card" id="marble">
+                            <a href="products.html?category=1" class="monument-card" id="marble">
                                 <h3>Паметници от МРАМОР</h3>
                                 <div class="monument-image">
                                     <img loading="lazy" decoding="async" src="images/gallery/mramor.png" alt="Паметници от мрамор">
                                 </div>
                                 <p>Мраморни паметници с различни форми и размери. Индивидуален дизайн, надпис и оформление според желанието на клиента.</p>
-                            </div>
+                                <span class="view-products-btn">Виж продукти →</span>
+                            </a>
 
-                            <div class="monument-card" id="granite">
+                            <a href="products.html?category=2" class="monument-card" id="granite">
                                 <h3>Паметници от ГРАНИТ</h3>
                                 <div class="monument-image">
                                     <img loading="lazy" decoding="async" src="images/gallery/granit.png" alt="Паметници от гранит">
                                 </div>
                                 <p>Гранитни паметници с висока устойчивост и дълготрайност. Разнообразие от гранитни разцветки и обработки.</p>
-                            </div>
+                                <span class="view-products-btn">Виж продукти →</span>
+                            </a>
 
-                            <div class="monument-card" id="triplex">
+                            <a href="products.html?category=3" class="monument-card" id="triplex">
                                 <h3>Паметници с ТРИПЛЕКС</h3>
                                 <div class="monument-image">
                                     <img loading="lazy" decoding="async" src="images/gallery/tripleks.png" alt="Паметници с триплекс">
                                 </div>
                                 <p>Комбинирани решения с триплекс (закалено ламинирано стъкло) за модерна визия. Възможност за печат и индивидуални мотиви.</p>
-                            </div>
+                                <span class="view-products-btn">Виж продукти →</span>
+                            </a>
 
-                            <div class="monument-card" id="varovik">
-                                <h3>Паметници от ВАРОВИК</h3>
+                            <a href="products.html" class="monument-card" id="all-products">
+                                <h3>Всички продукти</h3>
                                 <div class="monument-image">
-                                    <img loading="lazy" decoding="async" src="images/gallery/osnoven.png" alt="Паметници от варовик">
+                                    <img loading="lazy" decoding="async" src="images/gallery/osnoven.png" alt="Всички продукти">
                                 </div>
-                                <p>Класическа естетика и естествена визия. Подходящи за разнообразни архитектурни решения и бюджети.</p>
-                            </div>
+                                <p>Разгледайте целия ни каталог с всички налични продукти и материали за паметници.</p>
+                                <span class="view-products-btn">Виж всички →</span>
+                            </a>
                         </div>
                     </div>
                 </section>
@@ -172,13 +176,6 @@
                     </div>
                 </section>
                 
-                <!-- Dynamic Products (fetched from API) -->
-                <section class="products-section">
-                    <div class="container">
-                        <h2>Наши продукти</h2>
-                        <div id="dynamic-products" class="products-grid" aria-live="polite"></div>
-                    </div>
-                </section>
             </div>
         </div>
     </main>
