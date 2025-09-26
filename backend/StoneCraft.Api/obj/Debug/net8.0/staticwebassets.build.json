@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "N06hRqOfdtxmvdMPHddHRSjQKspnq1f28htxzEmABR8=",
+  "Source": "StoneCraft.Api",
+  "BasePath": "_content/StoneCraft.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

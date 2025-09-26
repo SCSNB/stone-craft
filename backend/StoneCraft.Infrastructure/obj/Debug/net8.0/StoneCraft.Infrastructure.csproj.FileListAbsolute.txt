@@ -1,0 +1,16 @@
+/Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Infrastructure/obj/Debug/net8.0/StoneCraft.Infrastructure.csproj.AssemblyReference.cache
+/Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Infrastructure/obj/Debug/net8.0/StoneCraft.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+/Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Infrastructure/obj/Debug/net8.0/StoneCraft.Infrastructure.AssemblyInfoInputs.cache
+/Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Infrastructure/obj/Debug/net8.0/StoneCraft.Infrastructure.AssemblyInfo.cs
+/Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Infrastructure/obj/Debug/net8.0/StoneCraft.Infrastructure.csproj.CoreCompileInputs.cache
+/Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Infrastructure/obj/Debug/net8.0/StoneCraft.Infrastructure.sourcelink.json
+/Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Infrastructure/bin/Debug/net8.0/StoneCraft.Infrastructure.deps.json
+/Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Infrastructure/bin/Debug/net8.0/StoneCraft.Infrastructure.dll
+/Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Infrastructure/bin/Debug/net8.0/StoneCraft.Infrastructure.pdb
+/Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Infrastructure/bin/Debug/net8.0/StoneCraft.Domain.dll
+/Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Infrastructure/bin/Debug/net8.0/StoneCraft.Domain.pdb
+/Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Infrastructure/obj/Debug/net8.0/StoneCra.9DBAAF84.Up2Date
+/Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Infrastructure/obj/Debug/net8.0/StoneCraft.Infrastructure.dll
+/Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Infrastructure/obj/Debug/net8.0/refint/StoneCraft.Infrastructure.dll
+/Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Infrastructure/obj/Debug/net8.0/StoneCraft.Infrastructure.pdb
+/Users/philippenchev1/Documents/stoneCraft/stone-craft/backend/StoneCraft.Infrastructure/obj/Debug/net8.0/ref/StoneCraft.Infrastructure.dll

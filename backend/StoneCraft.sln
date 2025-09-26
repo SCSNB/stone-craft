@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoneCraft.Api", "StoneCraft.Api\StoneCraft.Api.csproj", "{B1157E55-A0E3-4674-84C2-8E22B8DB8E5C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoneCraft.Domain", "StoneCraft.Domain\StoneCraft.Domain.csproj", "{EC66A350-D021-447F-BA33-548EE93DDA72}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoneCraft.Infrastructure", "StoneCraft.Infrastructure\StoneCraft.Infrastructure.csproj", "{C781372F-66C4-49F4-8AAA-997F774FE4D5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B1157E55-A0E3-4674-84C2-8E22B8DB8E5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1157E55-A0E3-4674-84C2-8E22B8DB8E5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1157E55-A0E3-4674-84C2-8E22B8DB8E5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1157E55-A0E3-4674-84C2-8E22B8DB8E5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC66A350-D021-447F-BA33-548EE93DDA72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC66A350-D021-447F-BA33-548EE93DDA72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC66A350-D021-447F-BA33-548EE93DDA72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC66A350-D021-447F-BA33-548EE93DDA72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C781372F-66C4-49F4-8AAA-997F774FE4D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C781372F-66C4-49F4-8AAA-997F774FE4D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C781372F-66C4-49F4-8AAA-997F774FE4D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C781372F-66C4-49F4-8AAA-997F774FE4D5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

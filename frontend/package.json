@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "dev": "live-server public --port=5173 --open=index.html"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "live-server": "^1.2.2"
+  }
+}
