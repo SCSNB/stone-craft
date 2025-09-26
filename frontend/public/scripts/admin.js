@@ -8,12 +8,18 @@
   const statusEl = $('#formStatus');
   const listEl = $('#adminProducts');
   const filterSel = $('#filterCategory');
-  const fileInput = $('#image');
+  const fileInput = $('#images');
+  const imagePreview = $('#imagePreview');
+  const existingImages = $('#existingImages');
+  const existingImagesList = $('#existingImagesList');
+  const newImagesLabel = $('#newImagesLabel');
   const logoutBtn = $('#logoutBtn');
   const showAddFormBtn = $('#showAddFormBtn');
   const cancelFormBtn = $('#cancelFormBtn');
   const tokenKey = 'sc_admin_token';
   let editingProductId = null;
+  let existingImageIds = []; // Track existing images for deletion
+  let imagesToDelete = []; // Track images marked for deletion
 
   function getToken(){
     return localStorage.getItem(tokenKey) || '';
@@ -62,6 +68,151 @@
     }
   }
 
+  function showImagePreviews(files) {
+    if (!imagePreview) return;
+    imagePreview.innerHTML = '';
+    
+    const hasFiles = files && files.length > 0;
+    if (newImagesLabel) {
+      newImagesLabel.style.display = hasFiles ? 'block' : 'none';
+    }
+    
+    if (!hasFiles) return;
+    
+    Array.from(files).forEach((file, index) => {
+      if (file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const preview = document.createElement('div');
+          preview.style.cssText = 'position:relative; width:80px; height:80px; border:1px solid #ddd; border-radius:4px; overflow:hidden;';
+          preview.innerHTML = `
+            <img src="${e.target.result}" style="width:100%; height:100%; object-fit:cover;">
+            <button type="button" onclick="removeNewImagePreview(${index})" style="position:absolute; top:2px; right:2px; width:20px; height:20px; border:none; background:#e74c3c; color:white; border-radius:50%; cursor:pointer; font-size:12px; line-height:1;">×</button>
+            <div style="position:absolute; bottom:2px; left:2px; background:rgba(0,0,0,0.7); color:white; padding:1px 4px; border-radius:2px; font-size:10px;">НОВА</div>
+          `;
+          imagePreview.appendChild(preview);
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  }
+
+  function showExistingImages(images) {
+    if (!existingImagesList || !images || images.length === 0) {
+      if (existingImages) existingImages.style.display = 'none';
+      return;
+    }
+    
+    if (existingImages) existingImages.style.display = 'block';
+    existingImagesList.innerHTML = '';
+    existingImageIds = images.map(img => img.id);
+    imagesToDelete = [];
+    
+    images.forEach((img, index) => {
+      const preview = document.createElement('div');
+      preview.style.cssText = 'position:relative; width:80px; height:80px; border:1px solid #ddd; border-radius:4px; overflow:hidden;';
+      preview.innerHTML = `
+        <img src="${API_BASE}${img.url}" style="width:100%; height:100%; object-fit:cover;">
+        <button type="button" onclick="markImageForDeletion('${img.id}', ${index})" style="position:absolute; top:2px; right:2px; width:20px; height:20px; border:none; background:#e74c3c; color:white; border-radius:50%; cursor:pointer; font-size:12px; line-height:1;">×</button>
+        <div style="position:absolute; bottom:2px; left:2px; background:rgba(0,0,0,0.7); color:white; padding:1px 4px; border-radius:2px; font-size:10px;">СЪЩЕСТВУВА</div>
+      `;
+      preview.setAttribute('data-image-id', img.id);
+      existingImagesList.appendChild(preview);
+    });
+  }
+
+  window.removeNewImagePreview = function(index) {
+    if (!fileInput || !fileInput.files) return;
+    const dt = new DataTransfer();
+    Array.from(fileInput.files).forEach((file, i) => {
+      if (i !== index) dt.items.add(file);
+    });
+    fileInput.files = dt.files;
+    showImagePreviews(fileInput.files);
+  };
+
+  window.markImageForDeletion = function(imageId, index) {
+    const preview = document.querySelector(`[data-image-id="${imageId}"]`);
+    if (!preview) return;
+    
+    if (imagesToDelete.includes(imageId)) {
+      // Unmark for deletion
+      imagesToDelete = imagesToDelete.filter(id => id !== imageId);
+      preview.style.opacity = '1';
+      preview.style.filter = 'none';
+      const overlay = preview.querySelector('.delete-overlay');
+      if (overlay) overlay.remove();
+    } else {
+      // Mark for deletion
+      imagesToDelete.push(imageId);
+      preview.style.opacity = '0.5';
+      preview.style.filter = 'grayscale(100%)';
+      const overlay = document.createElement('div');
+      overlay.className = 'delete-overlay';
+      overlay.style.cssText = 'position:absolute; top:0; left:0; right:0; bottom:0; background:rgba(231,76,60,0.8); display:flex; align-items:center; justify-content:center; color:white; font-weight:bold; font-size:12px;';
+      overlay.textContent = 'ЩЕ СЕ ИЗТРИЕ';
+      preview.appendChild(overlay);
+    }
+  };
+
+  // Image carousel functionality
+  const imageStates = new Map(); // Track current image index for each product
+
+  window.changeImage = function(productId, direction) {
+    const card = document.querySelector(`[data-id="${productId}"]`);
+    if (!card) return;
+    
+    const mediaDiv = card.querySelector('.product-media');
+    const images = mediaDiv.querySelectorAll('img');
+    const counter = mediaDiv.querySelector('.image-counter');
+    
+    if (images.length <= 1) return;
+    
+    let currentIndex = imageStates.get(productId) || 0;
+    currentIndex += direction;
+    
+    if (currentIndex < 0) currentIndex = images.length - 1;
+    if (currentIndex >= images.length) currentIndex = 0;
+    
+    showImageAtIndex(productId, currentIndex);
+  };
+
+  window.showImage = function(productId, index) {
+    showImageAtIndex(productId, index);
+  };
+
+  function showImageAtIndex(productId, index) {
+    const card = document.querySelector(`[data-id="${productId}"]`);
+    if (!card) return;
+    
+    const mediaDiv = card.querySelector('.product-media');
+    const images = mediaDiv.querySelectorAll('img');
+    const counter = mediaDiv.querySelector('.image-counter');
+    const thumbnails = card.querySelectorAll('.thumbnails img');
+    
+    if (images.length <= 1) return;
+    
+    // Hide all images
+    images.forEach(img => img.style.display = 'none');
+    // Show current image
+    if (images[index]) {
+      images[index].style.display = 'block';
+    }
+    
+    // Update counter
+    if (counter) {
+      counter.textContent = `${index + 1}/${images.length}`;
+    }
+    
+    // Update thumbnail borders
+    thumbnails.forEach((thumb, i) => {
+      thumb.style.borderColor = i === index ? '#2c3e50' : '#ddd';
+    });
+    
+    // Save state
+    imageStates.set(productId, index);
+  }
+
   async function fetchProducts(category){
     const url = new URL(API_BASE + '/api/Products');
     if (category) url.searchParams.set('category', String(category));
@@ -79,10 +230,37 @@
       return;
     }
     const html = items.map(p => {
-      const img = (Array.isArray(p.images) && p.images.length > 0) ? (p.images[0].url || '') : '';
-      const mediaHtml = img 
-        ? `<div class="product-media"><img src="${img}" alt="${escapeHtml(p.name)}"></div>`
-        : `<div class="product-media no-image"></div>`;
+      const images = Array.isArray(p.images) ? p.images : [];
+      let mediaHtml = '';
+      
+      if (images.length === 0) {
+        mediaHtml = `<div class="product-media no-image"></div>`;
+      } else if (images.length === 1) {
+        const fullImageUrl = `${API_BASE}${images[0].url}`;
+        mediaHtml = `<div class="product-media"><img src="${fullImageUrl}" alt="${escapeHtml(p.name)}"></div>`;
+      } else {
+        // Multiple images - create carousel with thumbnails
+        const imageElements = images.map((img, index) => 
+          `<img src="${API_BASE}${img.url}" alt="${escapeHtml(p.name)}" style="width:100%; height:100%; object-fit:cover; display:${index === 0 ? 'block' : 'none'};">`
+        ).join('');
+        
+        const thumbnails = images.map((img, index) => 
+          `<img src="${API_BASE}${img.url}" alt="Снимка ${index + 1}" onclick="showImage('${p.id || p.Id}', ${index})" style="width:40px; height:40px; object-fit:cover; border:2px solid ${index === 0 ? '#2c3e50' : '#ddd'}; border-radius:4px; cursor:pointer; transition:border-color 0.3s;">`
+        ).join('');
+        
+        mediaHtml = `
+          <div class="product-media-wrapper">
+            <div class="product-media" style="position:relative;">
+              ${imageElements}
+              <div class="image-counter" style="position:absolute; top:5px; right:5px; background:rgba(0,0,0,0.7); color:white; padding:2px 6px; border-radius:10px; font-size:11px;">1/${images.length}</div>
+              <button class="prev-btn" onclick="changeImage('${p.id || p.Id}', -1)" style="position:absolute; left:5px; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.5); color:white; border:none; border-radius:50%; width:30px; height:30px; cursor:pointer; font-size:16px;">‹</button>
+              <button class="next-btn" onclick="changeImage('${p.id || p.Id}', 1)" style="position:absolute; right:5px; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.5); color:white; border:none; border-radius:50%; width:30px; height:30px; cursor:pointer; font-size:16px;">›</button>
+            </div>
+            <div class="thumbnails" style="display:flex; gap:4px; margin-top:8px; padding:0 4px; overflow-x:auto;">
+              ${thumbnails}
+            </div>
+          </div>`;
+      }
       
       return `
       <article class="product-card" data-id="${p.id || p.Id}">
@@ -153,24 +331,75 @@
         throw new Error('HTTP ' + res.status + ': ' + txt);
       }
       const created = editingProductId ? { id: editingProductId } : await res.json();
+      const productId = editingProductId || created.id || created.Id;
 
-      // Optional image upload
-      if (fileInput && fileInput.files && fileInput.files[0]){
-        const upFd = new FormData();
-        upFd.append('ProductId', created.id || created.Id || '');
-        upFd.append('File', fileInput.files[0]);
-        const upRes = await fetch(API_BASE + '/api/Uploads', {
-          method: 'POST',
-          headers: { 'Authorization': 'Bearer ' + t },
-          body: upFd
-        });
-        if (!upRes.ok){
-          const utxt = await upRes.text();
-          console.warn('Грешка при качване на снимка:', utxt);
+      // Delete marked images during edit
+      if (editingProductId && imagesToDelete.length > 0) {
+        console.log('Изтриване на', imagesToDelete.length, 'снимки');
+        for (const imageId of imagesToDelete) {
+          try {
+            const delRes = await fetch(`${API_BASE}/api/Uploads/${imageId}`, {
+              method: 'DELETE',
+              headers: { 'Authorization': 'Bearer ' + t }
+            });
+            if (delRes.ok) {
+              console.log(`Снимка ${imageId} изтрита успешно`);
+            } else {
+              console.error(`Грешка при изтриване на снимка ${imageId}`);
+            }
+          } catch (err) {
+            console.error(`Грешка при изтриване на снимка ${imageId}:`, err);
+          }
+        }
+      }
+
+      // Optional multiple images upload
+      if (fileInput && fileInput.files && fileInput.files.length > 0 && productId){
+        console.log('Качване на', fileInput.files.length, 'снимки за продукт ID:', productId);
+        let uploadedCount = 0;
+        let errorCount = 0;
+        
+        for (let i = 0; i < fileInput.files.length; i++) {
+          const file = fileInput.files[i];
+          const upFd = new FormData();
+          upFd.append('ProductId', productId);
+          upFd.append('File', file);
+          
+          try {
+            const upRes = await fetch(API_BASE + '/api/Uploads', {
+              method: 'POST',
+              headers: { 'Authorization': 'Bearer ' + t },
+              body: upFd
+            });
+            
+            if (upRes.ok) {
+              uploadedCount++;
+              console.log(`Снимка ${i + 1} качена успешно`);
+            } else {
+              errorCount++;
+              const utxt = await upRes.text();
+              console.error(`Грешка при качване на снимка ${i + 1}:`, utxt);
+            }
+          } catch (err) {
+            errorCount++;
+            console.error(`Грешка при качване на снимка ${i + 1}:`, err);
+          }
+        }
+        
+        if (errorCount > 0) {
+          statusEl.style.color = '#e67e22';
+          statusEl.textContent += ` (${uploadedCount} снимки качени, ${errorCount} грешки)`;
+        } else if (uploadedCount > 0) {
+          console.log(`Всички ${uploadedCount} снимки са качени успешно`);
         }
       }
 
       form.reset();
+      if (imagePreview) imagePreview.innerHTML = '';
+      if (existingImages) existingImages.style.display = 'none';
+      if (newImagesLabel) newImagesLabel.style.display = 'none';
+      existingImageIds = [];
+      imagesToDelete = [];
       form.style.display = 'none';
       statusEl.style.color = '#27ae60';
       statusEl.textContent = editingProductId ? 'Успешно обновен продукт' : 'Успешно добавен продукт';
@@ -183,33 +412,53 @@
     }
   }
 
-  function onEditClick(e){
+  async function onEditClick(e){
     e.preventDefault();
     const id = e.currentTarget.getAttribute('data-id');
     const card = e.currentTarget.closest('.product-card');
     if (!id || !card) return;
-    const titleEl = card.querySelector('.product-title');
-    const descEl = card.querySelector('.product-desc');
-    const priceEl = card.querySelector('.product-price');
-    const tagEl = card.querySelector('.product-tag');
-    // populate form
-    $('#name').value = titleEl ? titleEl.textContent : '';
-    $('#description').value = descEl ? descEl.textContent : '';
-    if (priceEl){
-      const m = priceEl.textContent.match(/([0-9]+(?:\.[0-9]+)?)/);
-      $('#price').value = m ? m[1] : '';
+    
+    try {
+      // Fetch full product data including images
+      const res = await fetch(`${API_BASE}/api/Products/${id}`);
+      if (!res.ok) throw new Error('Failed to fetch product');
+      const product = await res.json();
+      
+      const titleEl = card.querySelector('.product-title');
+      const descEl = card.querySelector('.product-desc');
+      const priceEl = card.querySelector('.product-price');
+      const tagEl = card.querySelector('.product-tag');
+      
+      // populate form
+      $('#name').value = product.name || (titleEl ? titleEl.textContent : '');
+      $('#description').value = product.description || (descEl ? descEl.textContent : '');
+      if (priceEl){
+        const m = priceEl.textContent.match(/([0-9]+(?:\.[0-9]+)?)/);
+        $('#price').value = m ? m[1] : '';
+      }
+      if (tagEl){
+        const label = tagEl.textContent.trim();
+        const map = { 'Мрамор': 1, 'Гранит': 2, 'Триплекс': 3 };
+        $('#category').value = map[label] || 1;
+      }
+      
+      // Show existing images
+      showExistingImages(product.images || []);
+      
+      // Clear new images
+      if (fileInput) fileInput.value = '';
+      showImagePreviews([]);
+      
+      editingProductId = id;
+      statusEl.style.color = '#333';
+      statusEl.textContent = 'Редакция на продукт (след запазване ще се обнови)';
+      // Show the form
+      form.style.display = 'grid';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (err) {
+      console.error('Error loading product for edit:', err);
+      alert('Грешка при зареждане на продукта за редакция');
     }
-    if (tagEl){
-      const label = tagEl.textContent.trim();
-      const map = { 'Мрамор': 1, 'Гранит': 2, 'Триплекс': 3 };
-      $('#category').value = map[label] || 1;
-    }
-    editingProductId = id;
-    statusEl.style.color = '#333';
-    statusEl.textContent = 'Редакция на продукт (след запазване ще се обнови)';
-    // Show the form
-    form.style.display = 'grid';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   async function onDeleteClick(e){
@@ -241,16 +490,31 @@
     filterSel?.addEventListener('change', reloadList);
     showAddFormBtn?.addEventListener('click', () => {
       editingProductId = null;
+      existingImageIds = [];
+      imagesToDelete = [];
       form.reset();
       $('#formStatus').textContent = '';
+      if (imagePreview) imagePreview.innerHTML = '';
+      if (existingImages) existingImages.style.display = 'none';
+      if (newImagesLabel) newImagesLabel.style.display = 'none';
       form.style.display = 'grid';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
     cancelFormBtn?.addEventListener('click', () => {
       editingProductId = null;
+      existingImageIds = [];
+      imagesToDelete = [];
       form.reset();
       $('#formStatus').textContent = '';
+      if (imagePreview) imagePreview.innerHTML = '';
+      if (existingImages) existingImages.style.display = 'none';
+      if (newImagesLabel) newImagesLabel.style.display = 'none';
       form.style.display = 'none';
+    });
+    
+    // Image preview functionality
+    fileInput?.addEventListener('change', (e) => {
+      showImagePreviews(e.target.files);
     });
     logoutBtn?.addEventListener('click', () => {
       localStorage.removeItem(tokenKey);

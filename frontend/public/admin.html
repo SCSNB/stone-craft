@@ -63,9 +63,21 @@
           </select>
         </div>
         <div>
-          <label for="image">Снимка (по избор)</label>
-          <input id="image" name="image" type="file" accept="image/png, image/jpeg, image/webp, image/gif">
-          <small style="display:block; color:#666; margin-top:.25rem;">Поддържани формати: JPG, PNG, WEBP, GIF. Максимум 20MB.</small>
+          <label for="images">Снимки (по избор)</label>
+          <input id="images" name="images" type="file" accept="image/png, image/jpeg, image/webp, image/gif" multiple>
+          <small style="display:block; color:#666; margin-top:.25rem;">Поддържани формати: JPG, PNG, WEBP, GIF. Максимум 20MB на файл. Можете да изберете няколко снимки наведнъж.</small>
+          
+          <!-- Existing images (shown during edit) -->
+          <div id="existingImages" style="display:none; margin-top:0.5rem;">
+            <label style="font-size:0.9rem; color:#666; margin-bottom:0.25rem; display:block;">Съществуващи снимки:</label>
+            <div id="existingImagesList" style="display:flex; gap:0.5rem; flex-wrap:wrap;"></div>
+          </div>
+          
+          <!-- New images preview -->
+          <div id="newImagesSection" style="margin-top:0.5rem;">
+            <label id="newImagesLabel" style="font-size:0.9rem; color:#666; margin-bottom:0.25rem; display:none;">Нови снимки:</label>
+            <div id="imagePreview" style="display:flex; gap:0.5rem; flex-wrap:wrap;"></div>
+          </div>
         </div>
         <div style="display:flex; gap:.75rem; align-items:center;">
           <button type="submit" class="btn btn-primary">Запази</button>

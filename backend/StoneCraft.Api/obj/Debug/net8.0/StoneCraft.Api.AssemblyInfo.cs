@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StoneCraft.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+87d2d8a0e578b92a501265582bf757a3bd48a602")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+148d67f033b25107fae4e73ec6012d491972b7bb")]
 [assembly: System.Reflection.AssemblyProductAttribute("StoneCraft.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StoneCraft.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -166,6 +166,60 @@
   font-size: 0.85rem;
 }
 
+/* Image carousel styles */
+.product-media .prev-btn,
+.product-media .next-btn {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.product-media:hover .prev-btn,
+.product-media:hover .next-btn {
+  opacity: 1;
+}
+
+.product-media .prev-btn:hover,
+.product-media .next-btn:hover {
+  background: rgba(0,0,0,0.8) !important;
+}
+
+.image-counter {
+  font-family: monospace;
+  font-weight: bold;
+}
+
+/* Thumbnail gallery styles */
+.product-media-wrapper {
+  width: 100%;
+}
+
+.thumbnails {
+  scrollbar-width: thin;
+  scrollbar-color: #ccc transparent;
+}
+
+.thumbnails::-webkit-scrollbar {
+  height: 4px;
+}
+
+.thumbnails::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.thumbnails::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 2px;
+}
+
+.thumbnails::-webkit-scrollbar-thumb:hover {
+  background: #999;
+}
+
+.thumbnails img:hover {
+  border-color: #34495e !important;
+  transform: scale(1.05);
+}
+
 /* Header keeps site's default styles from main.css */
 
 /* Login page form wrapper */
