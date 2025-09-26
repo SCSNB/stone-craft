@@ -52,6 +52,12 @@
     }
   }
 
+  function formatPrice(priceBGN) {
+    if (typeof priceBGN !== 'number' || priceBGN <= 0) return '';
+    const priceEUR = priceBGN / 1.95583;
+    return `${priceBGN.toFixed(2)} лв. / ${priceEUR.toFixed(2)} €`;
+  }
+
   function updateProductsCount(count){
     const productsHeader = $('#productsHeader');
     if (productsHeader) {
@@ -270,7 +276,7 @@
           ${p.description ? `<p class="product-desc">${escapeHtml(p.description)}</p>` : '<p class="product-desc">Няма описание</p>'}
           <div class="product-meta">
             <div class="product-info">
-              ${typeof p.price === 'number' ? `<span class="product-price">${p.price.toFixed(2)} лв.</span>` : ''}
+              ${typeof p.price === 'number' ? `<span class="product-price">${formatPrice(p.price)}</span>` : ''}
               ${p.category ? `<span class="product-tag">${categoryLabel(p.category)}</span>` : ''}
             </div>
             <div class="product-actions">

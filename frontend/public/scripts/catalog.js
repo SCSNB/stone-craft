@@ -28,6 +28,12 @@
       default: return '';
     }
   }
+
+  function formatPrice(priceBGN) {
+    if (typeof priceBGN !== 'number' || priceBGN <= 0) return 'Цена при запитване';
+    const priceEUR = priceBGN / 1.95583;
+    return `${priceBGN.toFixed(2)} лв. / ${priceEUR.toFixed(2)} €`;
+  }
   
   function getUrlParams() {
     const params = new URLSearchParams(window.location.search);
@@ -98,9 +104,11 @@
           </div>
           <div class="product-info">
             <h3 class="product-title">${escapeHtml(product.name)}</h3>
-            ${product.description ? `<p class="product-description">${escapeHtml(product.description)}</p>` : ''}
+            <div class="product-description-container">
+              ${product.description ? `<p class="product-description">${escapeHtml(product.description)}</p>` : '<p class="product-description">Няма описание</p>'}
+            </div>
             <div class="product-meta">
-              <span class="product-price">${product.price ? `${product.price.toFixed(2)} лв.` : 'Цена при запитване'}</span>
+              <span class="product-price">${formatPrice(product.price)}</span>
               <span class="product-category">${categoryLabel(product.category)}</span>
             </div>
           </div>

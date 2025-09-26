@@ -29,6 +29,12 @@
       default: return '';
     }
   }
+
+  function formatPrice(priceBGN) {
+    if (typeof priceBGN !== 'number' || priceBGN <= 0) return 'Цена при запитване';
+    const priceEUR = priceBGN / 1.95583;
+    return `${priceBGN.toFixed(2)} лв. / ${priceEUR.toFixed(2)} €`;
+  }
   
   function getUrlParams() {
     const params = new URLSearchParams(window.location.search);
@@ -101,15 +107,12 @@
           </div>
           <div class="product-info">
             <h3 class="product-title">${escapeHtml(product.name)}</h3>
-            ${product.description ? `<p class="product-description">${escapeHtml(product.description)}</p>` : ''}
-            <div class="product-meta">
-              <span class="product-price">${product.price ? `${product.price.toFixed(2)} лв.` : 'Цена при запитване'}</span>
-              <span class="product-category">${categoryLabel(product.category)}</span>
+            <div class="product-description-container">
+              ${product.description ? `<p class="product-description">${escapeHtml(product.description)}</p>` : '<p class="product-description">Няма описание</p>'}
             </div>
-            <div class="product-actions" style="margin-top: 1rem;">
-              <button class="btn btn-primary" onclick="contactForProduct('${escapeHtml(product.name)}')">
-                <i class="fas fa-phone"></i> Запитване
-              </button>
+            <div class="product-meta">
+              <span class="product-price">${formatPrice(product.price)}</span>
+              <span class="product-category">${categoryLabel(product.category)}</span>
             </div>
           </div>
         </article>
@@ -119,12 +122,6 @@
     productsContainer.innerHTML = html;
   }
   
-  window.contactForProduct = function(productName) {
-    const message = `Здравейте! Интересувам се от продукта: ${productName}`;
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/359888123456?text=${encodedMessage}`;
-    window.open(whatsappUrl, '_blank');
-  };
   
   async function loadProducts(category = '') {
     if (!productsContainer) return;
