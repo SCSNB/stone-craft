@@ -41,17 +41,64 @@
     </header>
 
     <main style="margin-top: 100px;">
-        <div class="container">
-            <!-- Breadcrumb Navigation -->
-            <nav class="breadcrumb" style="margin-bottom: 2rem;">
-                <a href="index.html">Начало</a>
-                <span>→</span>
-                <a href="catalog.html">Каталог</a>
-                <span>→</span>
-                <a href="#" id="breadcrumb-category">Категория</a>
-                <span>→</span>
-                <span id="breadcrumb-product">Продукт</span>
-            </nav>
+        <div class="page-layout">
+            <!-- Left Sidebar -->
+            <aside class="sidebar">
+                <!-- Gallery Section -->
+                <div class="sidebar-section gallery-section">
+                    <h3 class="gallery-title">Галерия</h3>
+                    <div class="sidebar-gallery">
+                        <a class="gallery-thumb" href="gallery.html" aria-label="Към галерията">
+                            <img loading="lazy" decoding="async" src="images/gallery/osnoven.png" alt="Изработен паметник">
+                        </a>
+                        <a class="gallery-thumb" href="gallery.html" aria-label="Към галерията">
+                            <img loading="lazy" decoding="async" src="images/gallery/mramor.png" alt="Паметник от мрамор">
+                        </a>
+                        <a class="gallery-thumb" href="gallery.html" aria-label="Към галерията">
+                            <img loading="lazy" decoding="async" src="images/gallery/granit.png" alt="Паметник от гранит">
+                        </a>
+                        <a class="gallery-thumb" href="gallery.html" aria-label="Към галерията">
+                            <img loading="lazy" decoding="async" src="images/gallery/tripleks.png" alt="Паметник с триплекс">
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Catalog Section -->
+                <div class="sidebar-section catalog-section">
+                    <h3 class="catalog-title">Каталог</h3>
+                    <ul class="catalog-menu">
+                        <li><a href="prices.html">ЦЕНИ</a></li>
+                        <li><a href="products.html?category=3">Паметници с ТРИПЛЕКС</a></li>
+                        <li><a href="products.html?category=1">Паметници от МРАМОР</a></li>
+                        <li><a href="products.html?category=2">Паметници от ГРАНИТ</a></li>
+                        <li><a href="products.html">Всички продукти</a></li>
+                    </ul>
+                </div>
+
+                <!-- Menu Section -->
+                <div class="sidebar-section menu-section">
+                    <h3 class="menu-title">Меню</h3>
+                    <ul class="sidebar-menu">
+                        <li><a href="catalog.html">Каталог</a></li>
+                        <li><a href="index.html#services">Услуги</a></li>
+                        <li><a href="index.html#about">За нас</a></li>
+                        <li><a href="index.html#contact">Контакти</a></li>
+                    </ul>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <!-- Breadcrumb Navigation -->
+                <nav class="breadcrumb" style="margin-bottom: 2rem;">
+                    <a href="index.html">Начало</a>
+                    <span>→</span>
+                    <a href="catalog.html">Каталог</a>
+                    <span>→</span>
+                    <a href="#" id="breadcrumb-category">Категория</a>
+                    <span>→</span>
+                    <span id="breadcrumb-product">Продукт</span>
+                </nav>
 
             <!-- Loading State -->
             <div id="loading-state" style="text-align:center; padding:3rem;">
@@ -91,10 +138,6 @@
                             <span id="product-category" class="product-category-badge"></span>
                         </div>
 
-                        <div class="product-price-section">
-                            <div id="product-price" class="product-price-large"></div>
-                        </div>
-
                         <div class="product-description-section">
                             <h3>Описание</h3>
                             <div id="product-description" class="product-description-content">
@@ -107,10 +150,13 @@
                                 <p>За повече информация заповядайте на място в собствената ни база, за да разгледате на живо много от нашите изработени гранитни и мраморни паметници и сами да се уверите в качествената изработка и ниски цени, които ни държат на пазара вече близо 20 години.</p>
                             </div>
                         </div>
+
+                        <div id="product-price" class="product-price-simple"></div>
                     </div>
                 </div>
             </div>
-        </div>
+            </div> <!-- End main-content -->
+        </div> <!-- End page-layout -->
     </main>
 
     <footer class="footer">

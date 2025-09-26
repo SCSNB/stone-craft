@@ -5,6 +5,11 @@
     box-sizing: border-box;
 }
 
+/* Breadcrumb spacing */
+.breadcrumb {
+    padding-left: 12px;
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -326,9 +331,9 @@ p {
 .product-category-badge {
     background: #f7f2ea;
     color: #5a3a28;
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-size: 0.9rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 14px;
+    font-size: 0.78rem;
     border: 1px solid #e5d8c7;
     font-weight: 600;
 }
@@ -1794,5 +1799,81 @@ a.logo {
     .dot {
         width: 10px;
         height: 10px;
+    }
+}
+
+/* Product Details Page Styles */
+.product-info-section h1 {
+    font-size: 1.4rem !important;
+    margin-bottom: 0.75rem;
+}
+
+.product-description-section h3 {
+    font-size: 1.2rem !important;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+/* Preserve user-entered formatting in product description */
+.product-description-content {
+    white-space: pre-wrap; /* keep newlines and sequences of spaces */
+    word-wrap: break-word;
+}
+
+.product-price-simple {
+    font-size: 1.1rem !important;
+    font-weight: 600;
+    color: #333;
+    margin-top: auto;
+    padding: 0;
+    background: none;
+    border: none;
+}
+
+/* Product details imagery adjustments */
+/* Remove rounded corners and add left padding for main image */
+.main-image-container {
+    padding-left: 12px;
+}
+
+#main-image {
+    border-radius: 0 !important;
+    object-fit: contain !important; /* show entire image without cropping */
+    background: #fff; /* neutral background for letterboxing */
+}
+
+/* Thumbnails row: left padding and no rounded corners */
+#thumbnail-gallery {
+    padding-left: 12px;
+}
+
+#thumbnail-gallery img {
+    border-radius: 0 !important;
+}
+
+/* Make the right column stretch and allow price to stick to the bottom */
+.product-info-section {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Ensure the images section has a consistent height matching the main image */
+.product-images-section {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .product-info-section h1 {
+        font-size: 1.2rem !important;
+    }
+    
+    .product-description-section h3 {
+        font-size: 1.1rem !important;
+    }
+    
+    .product-price-simple {
+        font-size: 1rem !important;
+        /* On mobile allow natural flow, not forced bottom alignment */
+        margin-top: 1rem;
     }
 }

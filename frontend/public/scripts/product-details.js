@@ -120,9 +120,9 @@
       productPrice.style.display = 'block';
     }
     
-    // Update description
+    // Update description (preserve user formatting)
     if (product.description && product.description.trim()) {
-      productDescription.innerHTML = `<p>${escapeHtml(product.description)}</p>`;
+      productDescription.textContent = product.description;
     }
     
     // Update images
