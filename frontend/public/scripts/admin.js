@@ -240,14 +240,14 @@
       let mediaHtml = '';
       
       if (images.length === 0) {
-        mediaHtml = `<div class="product-media no-image"></div>`;
+        mediaHtml = `<div class="product-media no-image" style="height:200px; background:#f8f9fa; display:flex; align-items:center; justify-content:center;"></div>`;
       } else if (images.length === 1) {
         const fullImageUrl = `${API_BASE}${images[0].url}`;
-        mediaHtml = `<div class="product-media"><img src="${fullImageUrl}" alt="${escapeHtml(p.name)}"></div>`;
+        mediaHtml = `<div class="product-media" style="position:relative; height:200px; background:#f8f9fa; display:flex; align-items:center; justify-content:center;"><img src="${fullImageUrl}" alt="${escapeHtml(p.name)}" style="width:auto; height:100%; max-width:100%; object-fit:contain; margin:0 auto;"></div>`;
       } else {
         // Multiple images - create carousel with thumbnails
         const imageElements = images.map((img, index) => 
-          `<img src="${API_BASE}${img.url}" alt="${escapeHtml(p.name)}" style="width:100%; height:100%; object-fit:cover; display:${index === 0 ? 'block' : 'none'};">`
+          `<img src="${API_BASE}${img.url}" alt="${escapeHtml(p.name)}" style="width:auto; height:100%; max-width:100%; object-fit:contain; display:${index === 0 ? 'block' : 'none'}; margin:0 auto;">`
         ).join('');
         
         const thumbnails = images.map((img, index) => 
@@ -256,7 +256,7 @@
         
         mediaHtml = `
           <div class="product-media-wrapper">
-            <div class="product-media" style="position:relative;">
+            <div class="product-media" style="position:relative; height:200px; background:#f8f9fa; display:flex; align-items:center; justify-content:center;">
               ${imageElements}
               <div class="image-counter" style="position:absolute; top:5px; right:5px; background:rgba(0,0,0,0.7); color:white; padding:2px 6px; border-radius:10px; font-size:11px;">1/${images.length}</div>
               <button class="prev-btn" onclick="changeImage('${p.id || p.Id}', -1)" style="position:absolute; left:5px; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.5); color:white; border:none; border-radius:50%; width:30px; height:30px; cursor:pointer; font-size:16px;">‹</button>

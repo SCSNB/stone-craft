@@ -5,6 +5,64 @@
     box-sizing: border-box;
 }
 
+/* Admin page product card media alignment (match public products) */
+body[data-page="admin"] .product-media {
+    height: 200px;
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+body[data-page="admin"] .product-media img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+}
+/* Lightbox nav buttons */
+.pd-lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 90px;
+    height: 90px;
+    border: none;
+    border-radius: 50%;
+    background: transparent; /* fully transparent circle */
+    color: #fff; /* brighter arrow for visibility */
+    font-size: 44px;
+    line-height: 0; /* ensure glyph is optically centered */
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    z-index: 10002; /* above image */
+    box-shadow: none;
+}
+
+/* Closer to the image on desktop */
+.pd-lightbox-prev { left: 2vw; }
+.pd-lightbox-next { right: 2vw; }
+
+/* On small screens keep near the edges for easier reach */
+@media (max-width: 768px) {
+  .pd-lightbox-prev { left: 12px; }
+  .pd-lightbox-next { right: 12px; }
+  .pd-lightbox-nav {
+    width: 60px;
+    height: 60px;
+    font-size: 36px;
+    font-weight: 700;
+  }
+}
+
 /* Breadcrumb spacing */
 .breadcrumb {
     padding-left: 12px;
@@ -149,12 +207,20 @@ p {
     height: 200px;
     overflow: hidden;
     background: #f8f9fa;
+    /* Center the image inside the card */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .product-image img {
-    width: 100%;
+    /* Show entire image without cropping while fitting into the box */
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    display: block;
 }
 
 .no-image-placeholder {
@@ -797,11 +863,41 @@ a.logo {
     position: relative;
 }
 
+/* Hero slider navigation buttons */
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 56px;
+    height: 56px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.35);
+    color: #fff;
+    font-size: 28px;
+    line-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10; /* ensure above images */
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.slider-btn:hover {
+    background: rgba(0,0,0,0.5);
+}
+
+.slider-btn.prev { left: 16px; }
+.slider-btn.next { right: 16px; }
+
 .banner-images {
     position: relative;
     width: 100%;
-    height: auto;
+    height: 400px; /* consistent height on desktop */
     overflow: hidden;
+    background: #ffffff; /* neutral background behind letterbox */
+    z-index: 1;
 }
 
 .banner-thumb {
@@ -809,7 +905,9 @@ a.logo {
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain; /* show entire image without cropping */
+    background: #ffffff; /* ensure white bars on sides if aspect ratio differs */
+    z-index: 1;
     border: 3px solid white;
     border-radius: 5px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
@@ -1840,6 +1938,7 @@ a.logo {
     border-radius: 0 !important;
     object-fit: contain !important; /* show entire image without cropping */
     background: #fff; /* neutral background for letterboxing */
+    cursor: zoom-in;
 }
 
 /* Thumbnails row: left padding and no rounded corners */
@@ -1855,6 +1954,46 @@ a.logo {
 .product-info-section {
     display: flex;
     flex-direction: column;
+}
+
+/* Product details lightbox */
+.pd-lightbox {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 10000;
+}
+
+.pd-lightbox img {
+    max-width: 90vw;
+    max-height: 90vh;
+    width: auto;
+    height: auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    background: #fff;
+    z-index: 10001;
+}
+
+.pd-lightbox-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Ensure the images section has a consistent height matching the main image */

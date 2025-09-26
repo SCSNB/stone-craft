@@ -16,6 +16,15 @@
   const productDescription = $('#product-description');
   const breadcrumbCategory = $('#breadcrumb-category');
   const breadcrumbProduct = $('#breadcrumb-product');
+  // Lightbox elements
+  const pdLightbox = $('#pd-lightbox');
+  const pdLightboxImage = $('#pd-lightbox-image');
+  const pdLightboxClose = $('#pdLightboxClose');
+  const pdLightboxPrev = $('#pdLightboxPrev');
+  const pdLightboxNext = $('#pdLightboxNext');
+
+  // Keep track of current image index in lightbox
+  let lightboxIndex = 0;
   
   function escapeHtml(str) {
     if (typeof str !== 'string') return '';
@@ -89,6 +98,16 @@
     if (window.currentProduct && window.currentProduct.images && window.currentProduct.images[index]) {
       const selectedImage = window.currentProduct.images[index];
       showMainImage(selectedImage.url, selectedImage.alt);
+    }
+    // Sync lightbox index if open
+    if (typeof lightboxIndex !== 'undefined' && pdLightbox && pdLightbox.style.display !== 'none') {
+      lightboxIndex = index;
+      // If lightbox is open, immediately update displayed image
+      const imgs = (window.currentProduct && Array.isArray(window.currentProduct.images)) ? window.currentProduct.images : [];
+      if (imgs[index]) {
+        pdLightboxImage.src = `${API_BASE}${imgs[index].url}`;
+        pdLightboxImage.alt = imgs[index].alt || (productTitle ? productTitle.textContent : '');
+      }
     }
   };
   
@@ -167,6 +186,96 @@
   }
   
   function init() {
+    // Lightbox behavior
+    function getImages() {
+      const imgs = (window.currentProduct && Array.isArray(window.currentProduct.images)) ? window.currentProduct.images : [];
+      return imgs;
+    }
+
+    function updateLightboxNavVisibility() {
+      const imgs = getImages();
+      const hasMultiple = imgs.length > 1;
+      if (pdLightboxPrev) pdLightboxPrev.style.display = hasMultiple ? 'flex' : 'none';
+      if (pdLightboxNext) pdLightboxNext.style.display = hasMultiple ? 'flex' : 'none';
+    }
+
+    function showLightboxAt(index) {
+      const imgs = getImages();
+      if (imgs.length === 0) return;
+      // Normalize index into range
+      lightboxIndex = ((index % imgs.length) + imgs.length) % imgs.length;
+      const img = imgs[lightboxIndex];
+      pdLightboxImage.src = `${API_BASE}${img.url}`;
+      pdLightboxImage.alt = img.alt || (productTitle ? productTitle.textContent : '');
+      updateLightboxNavVisibility();
+    }
+
+    function openLightbox() {
+      if (!mainImage || !pdLightbox || !pdLightboxImage) return;
+      if (!mainImage.src) return;
+      // Determine current index from main image source
+      const imgs = getImages();
+      const currentSrc = mainImage.src;
+      let idx = 0;
+      if (imgs.length > 0) {
+        const found = imgs.findIndex(i => currentSrc.endsWith(i.url));
+        idx = found >= 0 ? found : 0;
+      }
+      showLightboxAt(idx);
+      pdLightbox.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      if (!pdLightbox) return;
+      pdLightbox.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    // Open on main image click
+    if (mainImage) {
+      mainImage.addEventListener('click', openLightbox);
+    }
+
+    // Close on button
+    if (pdLightboxClose) {
+      pdLightboxClose.addEventListener('click', closeLightbox);
+    }
+
+    // Close when clicking outside the image (on backdrop)
+    if (pdLightbox) {
+      pdLightbox.addEventListener('click', (e) => {
+        if (e.target === pdLightbox) closeLightbox();
+      });
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      const isOpen = pdLightbox && pdLightbox.style.display !== 'none';
+      if (!isOpen) return;
+      if (e.key === 'Escape') {
+        closeLightbox();
+      } else if (e.key === 'ArrowLeft') {
+        showLightboxAt(lightboxIndex - 1);
+      } else if (e.key === 'ArrowRight') {
+        showLightboxAt(lightboxIndex + 1);
+      }
+    });
+
+    // Button navigation
+    if (pdLightboxPrev) {
+      pdLightboxPrev.addEventListener('click', (e) => {
+        e.stopPropagation();
+        showLightboxAt(lightboxIndex - 1);
+      });
+    }
+    if (pdLightboxNext) {
+      pdLightboxNext.addEventListener('click', (e) => {
+        e.stopPropagation();
+        showLightboxAt(lightboxIndex + 1);
+      });
+    }
+
     loadProduct();
   }
   

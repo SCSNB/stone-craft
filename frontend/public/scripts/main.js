@@ -101,6 +101,9 @@ class BannerModule {
         this.container = document.querySelector('.banner-images');
         this.bannerThumbs = this.container ? this.container.querySelectorAll('.banner-thumb') : [];
         this.bannerText = document.querySelector('.banner-text');
+        // Slider controls (prev/next buttons)
+        this.prevBtn = document.querySelector('.slider-btn.prev');
+        this.nextBtn = document.querySelector('.slider-btn.next');
         this.currentIndex = 0;
         this.interval = null;
         this.intervalMs = 3500;
@@ -120,16 +123,23 @@ class BannerModule {
         this.setupInitialState();
         this.startAutoSlide();
         this.setupHoverPause();
+        this.setupControlButtons();
         this.syncHeight();
         this.setupResizeObserver();
         this.setupImageLoadHandler();
     }
     
     setupInitialState() {
-        // Ensure only the first image is visible initially
+        // Hide all, show only the first (or currentIndex) explicitly
         this.bannerThumbs.forEach((img, i) => {
-            img.classList.toggle('active', i === this.currentIndex);
+            img.classList.remove('active');
+            img.style.display = 'none';
         });
+        const first = this.bannerThumbs[this.currentIndex] || this.bannerThumbs[0];
+        if (first) {
+            first.classList.add('active');
+            first.style.display = 'block';
+        }
     }
 
     startAutoSlide() {
@@ -146,9 +156,18 @@ class BannerModule {
 
     setActive(index) {
         if (!this.bannerThumbs.length) return;
-        this.bannerThumbs[this.currentIndex]?.classList.remove('active');
+        // Hide all first (robust against CSS stacking)
+        this.bannerThumbs.forEach(img => {
+            img.classList.remove('active');
+            img.style.display = 'none';
+        });
+        // Compute new index
         this.currentIndex = (index + this.bannerThumbs.length) % this.bannerThumbs.length;
-        this.bannerThumbs[this.currentIndex]?.classList.add('active');
+        const active = this.bannerThumbs[this.currentIndex];
+        if (active) {
+            active.classList.add('active');
+            active.style.display = 'block';
+        }
     }
 
     next() {
@@ -157,6 +176,28 @@ class BannerModule {
 
     prev() {
         this.setActive(this.currentIndex - 1);
+    }
+
+    setupControlButtons() {
+        const restart = () => {
+            this.stopAutoSlide();
+            // small delay before restarting to avoid instant change
+            setTimeout(() => this.startAutoSlide(), 2000);
+        };
+        if (this.prevBtn) {
+            this.prevBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.prev();
+                restart();
+            });
+        }
+        if (this.nextBtn) {
+            this.nextBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.next();
+                restart();
+            });
+        }
     }
 
     setupHoverPause() {
