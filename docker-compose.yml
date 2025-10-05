@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: ./backend/StoneCraft.Api
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+      - "44300:443"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:80;https://+:443
+    restart: unless-stopped
+    volumes:
+      - ./frontend/public:/app/wwwroot
