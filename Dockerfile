@@ -24,6 +24,8 @@ COPY frontend/public /app/wwwroot
 # Set the entry point
 ENTRYPOINT ["dotnet", "StoneCraft.Api.dll"]
 
+# Configure the app to listen on port 8080
+ENV ASPNETCORE_URLS=http://+:8080
+
 # Expose the port the app runs on
-EXPOSE 80
-EXPOSE 443
+EXPOSE 8080

@@ -1,0 +1,44 @@
+# fly.toml app configuration file generated for stonecraft on 2025-10-06T18:35:44+03:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'stonecraft'
+primary_region = 'fra'
+
+[build]
+  dockerfile = 'Dockerfile'
+
+[deploy]
+  strategy = 'bluegreen'
+  max_unavailable = 0.2
+
+[env]
+  ASPNETCORE_ENVIRONMENT = 'Production'
+  ASPNETCORE_URLS = 'http://+:8080'
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 1
+  processes = ['app']
+
+  [http_service.http_options]
+    [http_service.http_options.response]
+      [http_service.http_options.response.headers]
+        X-Forwarded-Proto = 'https'
+
+  [[http_service.checks]]
+    interval = '30s'
+    timeout = '5s'
+    method = 'GET'
+    path = '/'
+    protocol = 'http'
+    tls_skip_verify = false
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
