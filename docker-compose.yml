@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: stonecraft-postgres
+    environment:
+      POSTGRES_DB: stonecraft
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: stonecraft-web
+    depends_on:
+      - postgres
+    ports:
+      - "8080:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=stonecraft;Username=postgres;Password=postgres
+    volumes:
+      - ./backend/StoneCraft.Api/appsettings.Development.json:/app/appsettings.Development.json:ro
+
+volumes:
+  postgres_data:
