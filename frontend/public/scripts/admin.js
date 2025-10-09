@@ -1,5 +1,7 @@
 (function(){
-  const API_BASE = 'http://localhost:5080';
+  const hostname = window.location.hostname;
+  const isLocal = hostname === 'localhost' || hostname === '127.0.0.1';
+  const API_BASE = isLocal ? 'http://localhost:5080' : window.location.origin;
 
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
@@ -529,7 +531,7 @@
     reloadList().catch(err => {
       console.error(err);
       if (listEl){
-        listEl.innerHTML = '<p style="color:#e74c3c">Грешка при зареждане на продукти. Проверете връзката към API (http://localhost:5080) и опитайте отново.</p>';
+        listEl.innerHTML = '<p style="color:#e74c3c">Грешка при зареждане на продукти. Моля опитайте отново по-късно.</p>';
       }
     });
   }

@@ -356,7 +356,9 @@ class ProductsModule {
     constructor() {
         this.isCatalogPage = (document.body && document.body.dataset && document.body.dataset.page === 'catalog');
         this.container = document.getElementById('dynamic-products');
-        this.API_BASE = 'http://localhost:5080';
+        const hostname = window.location.hostname;
+        const isLocal = hostname === 'localhost' || hostname === '127.0.0.1';
+        this.API_BASE = isLocal ? 'http://localhost:5080' : window.location.origin;
         if (this.isCatalogPage && this.container) {
             this.init();
         }
