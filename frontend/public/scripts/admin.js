@@ -119,8 +119,10 @@
     images.forEach((img, index) => {
       const preview = document.createElement('div');
       preview.style.cssText = 'position:relative; width:80px; height:80px; border:1px solid #ddd; border-radius:4px; overflow:hidden;';
+      // Check if the URL is already a full URL (starts with http) - for Cloudinary
+      const imgUrl = img.url.startsWith('http') ? img.url : `${API_BASE}${img.url}`;
       preview.innerHTML = `
-        <img src="${API_BASE}${img.url}" style="width:100%; height:100%; object-fit:cover;">
+        <img src="${imgUrl}" style="width:100%; height:100%; object-fit:cover;">
         <button type="button" onclick="markImageForDeletion('${img.id}', ${index})" style="position:absolute; top:2px; right:2px; width:20px; height:20px; border:none; background:#e74c3c; color:white; border-radius:50%; cursor:pointer; font-size:12px; line-height:1;">×</button>
         <div style="position:absolute; bottom:2px; left:2px; background:rgba(0,0,0,0.7); color:white; padding:1px 4px; border-radius:2px; font-size:10px;">СЪЩЕСТВУВА</div>
       `;
@@ -244,17 +246,20 @@
       if (images.length === 0) {
         mediaHtml = `<div class="product-media no-image" style="height:200px; background:#f8f9fa; display:flex; align-items:center; justify-content:center;"></div>`;
       } else if (images.length === 1) {
-        const fullImageUrl = `${API_BASE}${images[0].url}`;
+        // Check if the URL is already a full URL (starts with http) - for Cloudinary
+        const fullImageUrl = images[0].url.startsWith('http') ? images[0].url : `${API_BASE}${images[0].url}`;
         mediaHtml = `<div class="product-media" style="position:relative; height:200px; background:#f8f9fa; display:flex; align-items:center; justify-content:center;"><img src="${fullImageUrl}" alt="${escapeHtml(p.name)}" style="width:auto; height:100%; max-width:100%; object-fit:contain; margin:0 auto;"></div>`;
       } else {
         // Multiple images - create carousel with thumbnails
-        const imageElements = images.map((img, index) => 
-          `<img src="${API_BASE}${img.url}" alt="${escapeHtml(p.name)}" style="width:auto; height:100%; max-width:100%; object-fit:contain; display:${index === 0 ? 'block' : 'none'}; margin:0 auto;">`
-        ).join('');
+        const imageElements = images.map((img, index) => {
+          const imgUrl = img.url.startsWith('http') ? img.url : `${API_BASE}${img.url}`;
+          return `<img src="${imgUrl}" alt="${escapeHtml(p.name)}" style="width:auto; height:100%; max-width:100%; object-fit:contain; display:${index === 0 ? 'block' : 'none'}; margin:0 auto;">`;
+        }).join('');
         
-        const thumbnails = images.map((img, index) => 
-          `<img src="${API_BASE}${img.url}" alt="Снимка ${index + 1}" onclick="showImage('${p.id || p.Id}', ${index})" style="width:40px; height:40px; object-fit:cover; border:2px solid ${index === 0 ? '#2c3e50' : '#ddd'}; border-radius:4px; cursor:pointer; transition:border-color 0.3s;">`
-        ).join('');
+        const thumbnails = images.map((img, index) => {
+          const imgUrl = img.url.startsWith('http') ? img.url : `${API_BASE}${img.url}`;
+          return `<img src="${imgUrl}" alt="Снимка ${index + 1}" onclick="showImage('${p.id || p.Id}', ${index})" style="width:40px; height:40px; object-fit:cover; border:2px solid ${index === 0 ? '#2c3e50' : '#ddd'}; border-radius:4px; cursor:pointer; transition:border-color 0.3s;">`;
+        }).join('');
         
         mediaHtml = `
           <div class="product-media-wrapper">

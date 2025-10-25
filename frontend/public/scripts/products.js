@@ -93,7 +93,9 @@
     const html = products.map(product => {
       const images = Array.isArray(product.images) ? product.images : [];
       const firstImage = images.length > 0 ? images[0].url : '';
-      const imageUrl = firstImage ? `${API_BASE}${firstImage}` : '';
+      // Check if the URL is already a full URL (starts with http) - for Cloudinary
+      const imageUrl = firstImage ? 
+        (firstImage.startsWith('http') ? firstImage : `${API_BASE}${firstImage}`) : '';
       
       return `
         <article class="product-card" onclick="openProductDetails('${product.id || product.Id}')" style="cursor: pointer;">

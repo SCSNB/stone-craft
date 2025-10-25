@@ -1,7 +1,8 @@
 (function(){
   const hostname = window.location.hostname;
   const isLocal = hostname === 'localhost' || hostname === '127.0.0.1';
-  const API_BASE = isLocal ? 'http://localhost:5080' : window.location.origin;
+  const API_PORT = 5080; // Fixed backend port
+  const API_BASE = isLocal ? `http://localhost:${API_PORT}` : window.location.origin;
   const form = document.getElementById('loginForm');
   const statusEl = document.getElementById('loginStatus');
   const tokenKey = 'sc_admin_token';

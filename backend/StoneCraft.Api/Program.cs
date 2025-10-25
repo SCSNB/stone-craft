@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Text.Json.Serialization;
+using StoneCraft.Api.Settings;
+using StoneCraft.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Swagger/OpenAPI
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Configure Cloudinary
+builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("Cloudinary"));
+builder.Services.AddScoped<ICloudinaryService, CloudinaryService>();
 
 // Controllers
 builder.Services.AddControllers()
@@ -25,14 +31,25 @@ builder.Services.AddControllers()
 
 // CORS policy for frontend dev server
 const string CorsPolicy = "FrontendDevPolicy";
+const int FrontendPort = 5173; // Един фиксиран порт за разработка
+
+// Проверка дали портът е свободен
+if (IsPortInUse(FrontendPort))
+{
+    Console.WriteLine($"Грешка: Порт {FrontendPort} е зает. Моля, спрете другите сървъри и опитайте отново.");
+    Console.WriteLine("Използвайте 'pkill -f \"live-server\"' за да спрете всички сървъри.");
+    return; // Спираме приложението
+}
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(CorsPolicy, policy =>
     {
         policy
-            .WithOrigins("http://localhost:5173", "http://127.0.0.1:5173")
+            .WithOrigins($"http://localhost:{FrontendPort}", $"http://127.0.0.1:{FrontendPort}")
             .AllowAnyHeader()
-            .AllowAnyMethod();
+            .AllowAnyMethod()
+            .AllowCredentials();
     });
 });
 
@@ -62,6 +79,13 @@ builder.Services.AddAuthentication(options =>
     };
 });
 builder.Services.AddAuthorization();
+
+// Helper function to check if port is in use
+static bool IsPortInUse(int port)
+{
+    var tcpListeners = System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().GetActiveTcpListeners();
+    return tcpListeners.Any(x => x.Port == port);
+}
 
 var app = builder.Build();
 

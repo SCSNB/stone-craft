@@ -66,7 +66,9 @@
   
   function showMainImage(imageUrl, alt) {
     if (imageUrl) {
-      mainImage.src = `${API_BASE}${imageUrl}`;
+      // Check if the URL is already a full URL (starts with http) - for Cloudinary
+      const fullImageUrl = imageUrl.startsWith('http') ? imageUrl : `${API_BASE}${imageUrl}`;
+      mainImage.src = fullImageUrl;
       mainImage.alt = alt || '';
       mainImage.style.display = 'block';
       noImagePlaceholder.style.display = 'none';
@@ -83,11 +85,15 @@
     }
     
     thumbnailGallery.style.display = 'flex';
-    thumbnailGallery.innerHTML = images.map((img, index) => `
-      <div class="thumbnail ${index === 0 ? 'active' : ''}" onclick="selectThumbnail(${index})">
-        <img src="${API_BASE}${img.url}" alt="${escapeHtml(img.alt || '')}" loading="lazy">
-      </div>
-    `).join('');
+    thumbnailGallery.innerHTML = images.map((img, index) => {
+      // Check if the URL is already a full URL (starts with http) - for Cloudinary
+      const imgUrl = img.url.startsWith('http') ? img.url : `${API_BASE}${img.url}`;
+      return `
+        <div class="thumbnail ${index === 0 ? 'active' : ''}" onclick="selectThumbnail(${index})">
+          <img src="${imgUrl}" alt="${escapeHtml(img.alt || '')}" loading="lazy">
+        </div>
+      `;
+    }).join('');
   }
   
   window.selectThumbnail = function(index) {
@@ -207,7 +213,9 @@
       // Normalize index into range
       lightboxIndex = ((index % imgs.length) + imgs.length) % imgs.length;
       const img = imgs[lightboxIndex];
-      pdLightboxImage.src = `${API_BASE}${img.url}`;
+      // Check if the URL is already a full URL (starts with http) - for Cloudinary
+      const fullImageUrl = img.url.startsWith('http') ? img.url : `${API_BASE}${img.url}`;
+      pdLightboxImage.src = fullImageUrl;
       pdLightboxImage.alt = img.alt || (productTitle ? productTitle.textContent : '');
       updateLightboxNavVisibility();
     }
@@ -220,7 +228,11 @@
       const currentSrc = mainImage.src;
       let idx = 0;
       if (imgs.length > 0) {
-        const found = imgs.findIndex(i => currentSrc.endsWith(i.url));
+        const found = imgs.findIndex(i => {
+          // Check if the URL is already a full URL (starts with http) - for Cloudinary
+          const fullImgUrl = i.url.startsWith('http') ? i.url : `${API_BASE}${i.url}`;
+          return currentSrc === fullImgUrl || currentSrc.endsWith(i.url);
+        });
         idx = found >= 0 ? found : 0;
       }
       showLightboxAt(idx);

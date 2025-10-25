@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StoneCraft.Infrastructure;
 using StoneCraft.Domain.Entities;
+using StoneCraft.Api.Services;
+using Microsoft.Extensions.Options;
 
 namespace StoneCraft.Api.Controllers;
 
@@ -14,12 +16,18 @@ public class UploadsController : ControllerBase
     private readonly ApplicationDbContext _context;
     private readonly IWebHostEnvironment _environment;
     private readonly ILogger<UploadsController> _logger;
+    private readonly ICloudinaryService _cloudinaryService;
 
-    public UploadsController(ApplicationDbContext context, IWebHostEnvironment environment, ILogger<UploadsController> logger)
+    public UploadsController(
+        ApplicationDbContext context, 
+        IWebHostEnvironment environment, 
+        ILogger<UploadsController> logger,
+        ICloudinaryService cloudinaryService)
     {
         _context = context;
         _environment = environment;
         _logger = logger;
+        _cloudinaryService = cloudinaryService;
     }
 
     [HttpPost]
@@ -58,35 +66,21 @@ public class UploadsController : ControllerBase
                 return BadRequest("Файлът е твърде голям. Максимум 20MB");
             }
 
-            // Създаване на папка за снимки ако не съществува
-            var uploadsPath = Path.Combine(_environment.WebRootPath ?? "wwwroot", "uploads");
-            if (!Directory.Exists(uploadsPath))
-            {
-                Directory.CreateDirectory(uploadsPath);
-            }
-
-            // Генериране на уникално име на файла
-            var fileName = $"{Guid.NewGuid()}{fileExtension}";
-            var filePath = Path.Combine(uploadsPath, fileName);
-
-            // Запазване на файла
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                await File.CopyToAsync(stream);
-            }
+            // Качване на снимката в Cloudinary
+            var imageUrl = await _cloudinaryService.UploadImageAsync(File);
 
             // Създаване на ImageAsset запис в базата
             var imageAsset = new ImageAsset
             {
                 ProductId = productId,
-                Url = $"/uploads/{fileName}",
+                Url = imageUrl,
                 Alt = product.Name
             };
 
             _context.ImageAssets.Add(imageAsset);
             await _context.SaveChangesAsync();
 
-            _logger.LogInformation("Успешно качена снимка {FileName} за продукт {ProductId}", fileName, productId);
+            _logger.LogInformation("Успешно качена снимка за продукт {ProductId}", productId);
 
             return Ok(new { 
                 id = imageAsset.Id,
@@ -112,11 +106,17 @@ public class UploadsController : ControllerBase
                 return NotFound("Снимката не е намерена");
             }
 
-            // Delete file from filesystem
-            var filePath = Path.Combine(_environment.WebRootPath ?? "wwwroot", "uploads", Path.GetFileName(imageAsset.Url));
-            if (System.IO.File.Exists(filePath))
+            // Изтриване на снимка от Cloudinary
+            // Извличане на public_id от URL-а
+            var uri = new Uri(imageAsset.Url);
+            var segments = uri.Segments;
+            if (segments.Length >= 2)
             {
-                System.IO.File.Delete(filePath);
+                // Вземаме предпоследния сегмент (име на папката) и името на файла без разширението
+                var folder = segments[^2].Trim('/');
+                var fileName = Path.GetFileNameWithoutExtension(segments.Last());
+                var publicId = $"{folder}/{fileName}";
+                await _cloudinaryService.DeleteImageAsync(publicId);
             }
 
             // Delete from database
