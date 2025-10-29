@@ -351,6 +351,182 @@ class GalleryModule {
     }
 }
 
+// Gallery Products Module (fetches and displays all product images in gallery)
+class GalleryProductsModule {
+    constructor() {
+        this.isGalleryPage = (document.body && document.body.dataset && document.body.dataset.page === 'gallery');
+        this.galleryGrid = document.getElementById('galleryGrid');
+        const hostname = window.location.hostname;
+        const isLocal = hostname === 'localhost' || hostname === '127.0.0.1';
+        this.API_BASE = isLocal ? 'http://localhost:5080' : window.location.origin;
+        if (this.isGalleryPage && this.galleryGrid) {
+            this.init();
+        }
+    }
+
+    async init() {
+        try {
+            const products = await this.fetchProducts();
+            this.renderGallery(products);
+        } catch (err) {
+            console.error('Грешка при зареждане на продукти за галерията:', err);
+            this.galleryGrid.innerHTML = '<p style="color:#e74c3c">Неуспешно зареждане на галерията. Опитайте отново по-късно.</p>';
+        }
+    }
+
+    async fetchProducts() {
+        const res = await fetch(`${this.API_BASE}/api/Products`);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return await res.json();
+    }
+
+    renderGallery(products) {
+        if (!Array.isArray(products) || products.length === 0) {
+            this.galleryGrid.innerHTML = '<p>Все още няма добавени продукти в галерията.</p>';
+            return;
+        }
+
+        // Filter products with images and get all images
+        const productImages = [];
+        products.forEach(product => {
+            if (Array.isArray(product.images) && product.images.length > 0) {
+                product.images.forEach(image => {
+                    if (image && image.url) {
+                        const imageUrl = image.url.startsWith('http') ? image.url : `${this.API_BASE}${image.url}`;
+                        productImages.push({
+                            src: imageUrl,
+                            alt: product.name || 'Продукт',
+                            productName: product.name || 'Продукт',
+                            productId: product.id,
+                            // Create a thumbnail version of the URL (assuming Cloudinary or similar)
+                            thumbnail: this.createThumbnailUrl(imageUrl, 200, 150) // width: 200px, height: 150px
+                        });
+                    }
+                });
+            }
+        });
+
+        if (productImages.length === 0) {
+            this.galleryGrid.innerHTML = '<p>Няма налични снимки в галерията.</p>';
+            return;
+        }
+        
+        // Update the sidebar gallery with thumbnails
+        this.updateSidebarGallery(productImages);
+
+        // Clear existing gallery items
+        this.galleryGrid.innerHTML = '';
+
+        // Add new gallery items for each product image
+        productImages.forEach((img, index) => {
+            const galleryItem = document.createElement('div');
+            galleryItem.className = 'gallery-item';
+            galleryItem.dataset.src = img.src;
+            galleryItem.dataset.index = index;
+            
+            galleryItem.innerHTML = `
+                <img loading="lazy" decoding="async" src="${img.src}" alt="${this.escapeHtml(img.alt)}">
+                <div class="gallery-info">
+                    <h4>${this.escapeHtml(img.productName)}</h4>
+                    <a href="#" class="details-btn" onclick="return false;">Детайли</a>
+                </div>
+            `;
+            
+            galleryItem.addEventListener('click', (e) => {
+                e.preventDefault();
+                const lightbox = document.getElementById('lightbox');
+                const lightboxImg = document.getElementById('lightboxImage');
+                if (lightbox && lightboxImg) {
+                    lightboxImg.src = img.src;
+                    lightboxImg.alt = img.alt;
+                    lightbox.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+            
+            this.galleryGrid.appendChild(galleryItem);
+        });
+
+        // Reinitialize gallery module with new items
+        if (window.app && window.app.getModule) {
+            const galleryModule = window.app.getModule('gallery');
+            if (galleryModule) {
+                // Reinitialize the gallery with new items
+                galleryModule.galleryItems = document.querySelectorAll('.gallery-item');
+                galleryModule.images = Array.from(galleryModule.galleryItems).map(item => ({
+                    src: item.dataset.src,
+                    alt: item.querySelector('img').alt
+                }));
+            }
+        }
+    }
+
+    escapeHtml(str) {
+        if (typeof str !== 'string') return '';
+        return str
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+    }
+    
+    // Create a thumbnail URL from the original image URL
+    createThumbnailUrl(originalUrl, width, height) {
+        if (!originalUrl) return '';
+        
+        // If it's a Cloudinary URL, add resize parameters
+        if (originalUrl.includes('res.cloudinary.com')) {
+            // Insert resize parameters before the file extension
+            return originalUrl.replace(/upload\//, `upload/c_fill,w_${width},h_${height},f_auto/`);
+        }
+        
+        // For other image sources, return the original URL
+        // You might want to add handling for other image services here
+        return originalUrl;
+    }
+    
+    // Update the sidebar gallery with thumbnails
+    updateSidebarGallery(images) {
+        const sidebarGallery = document.querySelector('.sidebar-gallery');
+        if (!sidebarGallery) return;
+        
+        // Take up to 6 random images for the sidebar
+        const randomImages = [...images]
+            .sort(() => 0.5 - Math.random())
+            .slice(0, 6);
+        
+        // Create the HTML for the sidebar gallery
+        const galleryHtml = randomImages.map((img, index) => `
+            <a class="gallery-thumb" href="#" data-index="${index}" aria-label="Разгледай снимка - ${this.escapeHtml(img.alt)}">
+                <img loading="lazy" decoding="async" 
+                     src="${img.thumbnail || img.src}" 
+                     alt="${this.escapeHtml(img.alt)}">
+            </a>
+        `).join('');
+        
+        // Update the sidebar gallery
+        sidebarGallery.innerHTML = galleryHtml;
+        
+        // Add click handlers to the thumbnails
+        sidebarGallery.querySelectorAll('.gallery-thumb').forEach((thumb, index) => {
+            thumb.addEventListener('click', (e) => {
+                e.preventDefault();
+                // Open the lightbox with the corresponding image
+                const lightbox = document.getElementById('lightbox');
+                const lightboxImg = document.getElementById('lightboxImage');
+                if (lightbox && lightboxImg) {
+                    const img = randomImages[index];
+                    lightboxImg.src = img.src;
+                    lightboxImg.alt = img.alt;
+                    lightbox.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        });
+    }
+}
+
 // Products Module (fetches from API on catalog page)
 class ProductsModule {
     constructor() {
@@ -420,6 +596,61 @@ class ProductsModule {
             .replace(/>/g, '&gt;')
             .replace(/"/g, '&quot;')
             .replace(/'/g, '&#039;');
+    }
+    
+    // Create a thumbnail URL from the original image URL
+    createThumbnailUrl(originalUrl, width, height) {
+        if (!originalUrl) return '';
+        
+        // If it's a Cloudinary URL, add resize parameters
+        if (originalUrl.includes('res.cloudinary.com')) {
+            // Insert resize parameters before the file extension
+            return originalUrl.replace(/upload\//, `upload/c_fill,w_${width},h_${height},f_auto/`);
+        }
+        
+        // For other image sources, return the original URL
+        // You might want to add handling for other image services here
+        return originalUrl;
+    }
+    
+    // Update the sidebar gallery with thumbnails
+    updateSidebarGallery(images) {
+        const sidebarGallery = document.querySelector('.sidebar-gallery');
+        if (!sidebarGallery) return;
+        
+        // Take up to 6 random images for the sidebar
+        const randomImages = [...images]
+            .sort(() => 0.5 - Math.random())
+            .slice(0, 6);
+        
+        // Create the HTML for the sidebar gallery
+        const galleryHtml = randomImages.map((img, index) => `
+            <a class="gallery-thumb" href="#" data-index="${index}" aria-label="Разгледай снимка - ${this.escapeHtml(img.alt)}">
+                <img loading="lazy" decoding="async" 
+                     src="${img.thumbnail || img.src}" 
+                     alt="${this.escapeHtml(img.alt)}">
+            </a>
+        `).join('');
+        
+        // Update the sidebar gallery
+        sidebarGallery.innerHTML = galleryHtml;
+        
+        // Add click handlers to the thumbnails
+        sidebarGallery.querySelectorAll('.gallery-thumb').forEach((thumb, index) => {
+            thumb.addEventListener('click', (e) => {
+                e.preventDefault();
+                // Open the lightbox with the corresponding image
+                const lightbox = document.getElementById('lightbox');
+                const lightboxImg = document.getElementById('lightboxImage');
+                if (lightbox && lightboxImg) {
+                    const img = randomImages[index];
+                    lightboxImg.src = img.src;
+                    lightboxImg.alt = img.alt;
+                    lightbox.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        });
     }
 }
 
@@ -716,15 +947,17 @@ class App {
     
     initializeModules() {
         try {
-            // Initialize all modules
-            this.modules.navigation = new NavigationModule();
-            this.modules.banner = new BannerModule();
-            this.modules.gallery = new GalleryModule();
-            this.modules.products = new ProductsModule();
-            this.modules.contactForm = new ContactFormModule();
-            this.modules.scrollAnimations = new ScrollAnimationsModule();
-            this.modules.performance = new PerformanceModule();
-            
+            // Initialize modules
+            this.modules = {
+                navigation: new NavigationModule(),
+                banner: new BannerModule(),
+                gallery: new GalleryModule(),
+                products: new ProductsModule(),
+                galleryProducts: new GalleryProductsModule(),
+                contactForm: new ContactFormModule(),
+                scrollAnimations: new ScrollAnimationsModule(),
+                performance: new PerformanceModule()
+            };
             console.log('All modules initialized successfully');
         } catch (error) {
             console.error('Error initializing modules:', error);

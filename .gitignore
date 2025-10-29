@@ -69,3 +69,6 @@ node_modules/
 # Temporary files
 *.tmp
 *~
+
+# Local development appsettings (do not commit secrets)
+backend/StoneCraft.Api/appsettings.Development.json
