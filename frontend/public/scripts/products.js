@@ -35,7 +35,7 @@
   function formatPrice(priceBGN) {
     if (typeof priceBGN !== 'number' || priceBGN <= 0) return 'Цена при запитване';
     const priceEUR = priceBGN / 1.95583;
-    return `${priceBGN.toFixed(2)} лв. / ${priceEUR.toFixed(2)} €`;
+    return `${priceEUR.toFixed(2)} €`;
   }
   
   function getUrlParams() {

@@ -390,7 +390,14 @@ class ProductsModule {
     }
 
     productCard(p) {
-        const price = typeof p.price === 'number' ? p.price.toFixed(2) : p.price;
+        let priceDisplay = '';
+        if (typeof p.price === 'number' && p.price > 0) {
+            const priceEUR = (p.price / 1.95583).toFixed(2);
+            priceDisplay = `<div class="product-price">${priceEUR} €</div>`;
+        } else if (p.price) {
+            priceDisplay = `<div class="product-price">${p.price}</div>`;
+        }
+        
         const img = (Array.isArray(p.images) && p.images.length > 0) ? (p.images[0].url || '') : '';
         const safeImg = img ? `<img src="${img}" alt="${this.escapeHtml(p.name)}">` : '';
         return `
@@ -399,7 +406,7 @@ class ProductsModule {
                 <div class="product-body">
                     <h3 class="product-title">${this.escapeHtml(p.name)}</h3>
                     ${p.description ? `<p class="product-desc">${this.escapeHtml(p.description)}</p>` : ''}
-                    ${price ? `<div class="product-price">${price} лв.</div>` : ''}
+                    ${priceDisplay}
                 </div>
             </article>
         `;
