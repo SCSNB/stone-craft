@@ -54,9 +54,8 @@
     }
   }
 
-  function formatPrice(priceBGN) {
-    if (typeof priceBGN !== 'number' || priceBGN <= 0) return 'Цена при запитване';
-    const priceEUR = priceBGN / 1.95583;
+  function formatPrice(priceEUR) {
+    if (typeof priceEUR !== 'number' || priceEUR <= 0) return 'Цена при запитване';
     return `${priceEUR.toFixed(2)} €`;
   }
 

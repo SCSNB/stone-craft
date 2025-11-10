@@ -31,9 +31,8 @@
     }
   }
 
-  function formatPrice(priceBGN) {
-    if (typeof priceBGN !== 'number' || priceBGN <= 0) return 'Цена при запитване';
-    const priceEUR = priceBGN / 1.95583;
+  function formatPrice(priceEUR) {
+    if (typeof priceEUR !== 'number' || priceEUR <= 0) return 'Цена при запитване';
     return `${priceEUR.toFixed(2)} €`;
   }
   
@@ -90,7 +89,8 @@
     const html = products.map(product => {
       const images = Array.isArray(product.images) ? product.images : [];
       const firstImage = images.length > 0 ? images[0].url : '';
-      const imageUrl = firstImage ? `${API_BASE}${firstImage}` : '';
+      // Ако URL е пълен (Cloudinary), не добавяй API_BASE
+      const imageUrl = firstImage ? (firstImage.startsWith('http') ? firstImage : `${API_BASE}${firstImage}`) : '';
       
       return `
         <article class="product-card" onclick="openProductDetails('${product.id || product.Id}')" style="cursor: pointer;">

@@ -29,29 +29,46 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
     });
 
-// CORS policy for frontend dev server
+// CORS policy (Dev vs Prod)
 const string CorsPolicy = "FrontendDevPolicy";
 const int FrontendPort = 5173; // Един фиксиран порт за разработка
 
-// Проверка дали портът е свободен
-if (IsPortInUse(FrontendPort))
+if (builder.Environment.IsDevelopment())
 {
-    Console.WriteLine($"Грешка: Порт {FrontendPort} е зает. Моля, спрете другите сървъри и опитайте отново.");
-    Console.WriteLine("Използвайте 'pkill -f \"live-server\"' за да спрете всички сървъри.");
-    return; // Спираме приложението
-}
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(CorsPolicy, policy =>
+    // Проверка дали портът е зает само в Dev (никога да не спираме приложението в прод)
+    if (IsPortInUse(FrontendPort))
     {
-        policy
-            .WithOrigins($"http://localhost:{FrontendPort}", $"http://127.0.0.1:{FrontendPort}")
-            .AllowAnyHeader()
-            .AllowAnyMethod()
-            .AllowCredentials();
+        Console.WriteLine($"Грешка: Порт {FrontendPort} е зает. Моля, спрете другите сървъри и опитайте отново.");
+        Console.WriteLine("Използвайте 'pkill -f \"live-server\"' за да спрете всички сървъри.");
+        // Не прекратяваме процеса, само предупреждаваме
+    }
+
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy(CorsPolicy, policy =>
+        {
+            policy
+                .WithOrigins($"http://localhost:{FrontendPort}", $"http://127.0.0.1:{FrontendPort}")
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials();
+        });
     });
-});
+}
+else
+{
+    // В прод не ограничаваме CORS (може да стесните по домейн при нужда)
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy(CorsPolicy, policy =>
+        {
+            policy
+                .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+    });
+}
 
 // EF Core DbContext registration (must be before Build)
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
@@ -107,6 +124,9 @@ app.UseCors(CorsPolicy);
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+
+// Redirect clean URL /admin to the static admin.html
+app.MapGet("/admin", () => Results.Redirect("/admin.html", permanent: false));
 
 // Seed database with sample data on startup (dev convenience)
 using (var scope = app.Services.CreateScope())

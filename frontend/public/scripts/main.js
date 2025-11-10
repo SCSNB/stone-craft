@@ -568,14 +568,15 @@ class ProductsModule {
     productCard(p) {
         let priceDisplay = '';
         if (typeof p.price === 'number' && p.price > 0) {
-            const priceEUR = (p.price / 1.95583).toFixed(2);
+            const priceEUR = p.price.toFixed(2);
             priceDisplay = `<div class="product-price">${priceEUR} €</div>`;
         } else if (p.price) {
             priceDisplay = `<div class="product-price">${p.price}</div>`;
         }
         
         const img = (Array.isArray(p.images) && p.images.length > 0) ? (p.images[0].url || '') : '';
-        const safeImg = img ? `<img src="${img}" alt="${this.escapeHtml(p.name)}">` : '';
+        const imgUrl = img && (img.startsWith('http') ? img : img);
+        const safeImg = imgUrl ? `<img src="${imgUrl}" alt="${this.escapeHtml(p.name)}">` : '';
         return `
             <article class="product-card">
                 <div class="product-media">${safeImg}</div>
