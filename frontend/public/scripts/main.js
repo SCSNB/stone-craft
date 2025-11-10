@@ -434,13 +434,106 @@ class GalleryProductsModule {
             
             galleryItem.addEventListener('click', (e) => {
                 e.preventDefault();
+                
+                // Get all gallery items from the current gallery section only
+                const currentGallery = e.currentTarget.closest('.gallery-section');
+                const allGalleryItems = Array.from(currentGallery ? 
+                    currentGallery.querySelectorAll('.gallery-item') : 
+                    document.querySelectorAll('.gallery-item'));
+                    
+                const allImages = allGalleryItems.map(item => ({
+                    src: item.dataset.src || item.querySelector('img').src,
+                    alt: item.querySelector('img').alt || 'Галерия снимка'
+                }));
+                
+                // Find the current image index in the current gallery
+                const currentIndex = allImages.findIndex(image => image.src === img.src);
+                
                 const lightbox = document.getElementById('lightbox');
                 const lightboxImg = document.getElementById('lightboxImage');
+                const lightboxPrev = document.getElementById('lightboxPrev');
+                const lightboxNext = document.getElementById('lightboxNext');
+                
                 if (lightbox && lightboxImg) {
+                    // Store current gallery images in data attribute
+                    lightbox.dataset.currentGallery = JSON.stringify(allImages);
+                    lightbox.dataset.currentIndex = currentIndex;
+                    
+                    // Update current image
                     lightboxImg.src = img.src;
-                    lightboxImg.alt = img.alt;
+                    lightboxImg.alt = img.alt || 'Галерия снимка';
                     lightbox.classList.add('active');
                     document.body.style.overflow = 'hidden';
+                    
+                    // Navigation function
+                    const navigateImage = (direction) => {
+                        let currentImages = JSON.parse(lightbox.dataset.currentGallery);
+                        let newIndex = parseInt(lightbox.dataset.currentIndex) + direction;
+                        
+                        // Handle wrap-around
+                        if (newIndex < 0) newIndex = currentImages.length - 1;
+                        if (newIndex >= currentImages.length) newIndex = 0;
+                        
+                        lightboxImg.src = currentImages[newIndex].src;
+                        lightboxImg.alt = currentImages[newIndex].alt;
+                        lightbox.dataset.currentIndex = newIndex;
+                    };
+                    
+                    // Navigation event listeners
+                    if (lightboxPrev) {
+                        lightboxPrev.onclick = (e) => {
+                            e.stopPropagation();
+                            navigateImage(-1);
+                        };
+                    }
+                    
+                    if (lightboxNext) {
+                        lightboxNext.onclick = (e) => {
+                            e.stopPropagation();
+                            navigateImage(1);
+                        };
+                    }
+                    
+                    // Keyboard navigation
+                    const handleKeyDown = (e) => {
+                        if (e.key === 'ArrowLeft') {
+                            navigateImage(-1);
+                        } else if (e.key === 'ArrowRight') {
+                            navigateImage(1);
+                        } else if (e.key === 'Escape') {
+                            closeLightbox();
+                        }
+                    };
+                    
+                    // Close function
+                    const closeLightbox = () => {
+                        lightbox.classList.remove('active');
+                        document.body.style.overflow = 'auto';
+                        document.removeEventListener('keydown', handleKeyDown);
+                        if (lightboxPrev) lightboxPrev.onclick = null;
+                        if (lightboxNext) lightboxNext.onclick = null;
+                        delete lightbox.dataset.currentGallery;
+                        delete lightbox.dataset.currentIndex;
+                    };
+                    
+                    // Close button
+                    const closeBtn = document.querySelector('.lightbox-close');
+                    if (closeBtn) {
+                        closeBtn.onclick = (e) => {
+                            e.stopPropagation();
+                            closeLightbox();
+                        };
+                    }
+                    
+                    // Close on click outside
+                    lightbox.onclick = (event) => {
+                        if (event.target === lightbox) {
+                            closeLightbox();
+                        }
+                    };
+                    
+                    // Add keyboard event listener
+                    document.addEventListener('keydown', handleKeyDown);
                 }
             });
             
